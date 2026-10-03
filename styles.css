@@ -186,6 +186,8 @@ button { cursor: pointer; }
 .hero-explore > div { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid rgba(230,211,168,.38); border-left: 1px solid rgba(230,211,168,.38); }
 .hero-explore a { display: flex; min-height: 64px; align-items: center; justify-content: space-between; gap: .6rem; padding: .8rem .9rem; border-right: 1px solid rgba(230,211,168,.38); border-bottom: 1px solid rgba(230,211,168,.38); color: var(--ivory); font-size: .73rem; font-weight: 900; letter-spacing: .06em; line-height: 1.2; text-transform: uppercase; transition: color .2s ease, background .2s ease; }
 .hero-explore a:hover { color: var(--ink); background: var(--gold); }
+.footer-explore { padding-block: clamp(3.4rem, 6vw, 5rem); }
+.footer-explore .hero-explore { margin: 0; }
 
 .page-hero {
   position: relative;
@@ -289,7 +291,7 @@ button { cursor: pointer; }
 .section--dark .experience-card .card-link, .section--charcoal .experience-card .card-link { color: var(--champagne); }
 
 .experience-modal {
-  width: min(1120px, calc(100% - 1.2rem));
+  width: min(1440px, calc(100% - 2rem));
   max-height: min(92svh, 960px);
   padding: 0;
   overflow: auto;
@@ -348,6 +350,14 @@ button { cursor: pointer; }
 .experience-modal__list li { padding: .75rem 0; border-top: 1px solid rgba(230,211,168,.24); color: rgba(247,243,235,.82); font-size: .9rem; }
 .experience-modal__note { margin: 1.35rem 0 0; padding: .85rem .95rem; border-left: 3px solid var(--gold); color: rgba(247,243,235,.7); background: rgba(230,211,168,.08); font-size: .82rem; }
 .experience-modal__content .button { margin-top: 1.45rem; }
+
+@media (min-width: 821px) {
+  .experience-modal { height: min(88svh, 900px); overflow: hidden; }
+  .experience-modal__grid { grid-template-columns: minmax(0, 1fr) minmax(500px, 1fr); min-height: 0; height: 100%; }
+  .experience-modal__media { min-height: 0; height: 100%; }
+  .experience-modal__media img { height: min(68svh, 730px); }
+  .experience-modal__content { height: 100%; overflow-y: auto; padding: clamp(2rem, 3.2vw, 3.5rem); }
+}
 
 .fallback-art {
   position: relative;
