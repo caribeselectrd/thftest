@@ -8,6 +8,7 @@
     navToggle.addEventListener('click', function () {
       const isOpen = nav.classList.toggle('is-open');
       navToggle.setAttribute('aria-expanded', String(isOpen));
+      navToggle.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
       document.body.classList.toggle('menu-open', isOpen);
     });
 
@@ -15,6 +16,7 @@
       link.addEventListener('click', function () {
         nav.classList.remove('is-open');
         navToggle.setAttribute('aria-expanded', 'false');
+        navToggle.setAttribute('aria-label', 'Open navigation');
         document.body.classList.remove('menu-open');
       });
     });

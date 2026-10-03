@@ -15,11 +15,10 @@
       <a class="brand" href="index.html" aria-label="THF home"><img src="public/images/THF_LOGO.png" alt="THF"></a>
       <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-navigation" aria-label="Open navigation"><span></span><span></span><span></span></button>
       <nav class="site-nav" id="site-navigation" data-site-nav aria-label="Main navigation">
+        <a href="index.html" aria-current="page">Home</a>
         <a href="tours.html">Tours &amp; Excursions</a>
         <a href="nightlife.html">Nightlife</a>
         <a href="transport.html">Private Transport</a>
-        <a href="#about">About THF</a>
-        <a class="button button--small nav-cta" href="#inquiry">Plan Your Stay <span aria-hidden="true">→</span></a>
       </nav>
     </div>
   </header>
@@ -29,17 +28,16 @@
       <div class="hero-inner">
         <div class="hero-content">
           <p class="location">Bávaro · Punta Cana</p>
-          <h1 id="hero-heading">Live Your Best Experience.<br>The Right Way.</h1>
-          <p class="hero-copy">Explore Punta Cana with standout excursions, private boat experiences, and premium nightlife. From off-road adventures and sunset cruises to club reservations and private transfers, plan your time with THF.</p>
-          <div class="hero-actions">
-            <a class="button" href="#inquiry">Plan Your Stay <span aria-hidden="true">→</span></a>
-            <a class="button button--outline" href="#tours">Explore Tours &amp; Excursions <span aria-hidden="true">→</span></a>
-          </div>
-          <ul class="hero-ledger" aria-label="THF service categories">
-            <li>Tours &amp; Excursions</li>
-            <li>Nightlife</li>
-            <li>Private Transport</li>
-          </ul>
+          <h1 id="hero-heading">The Ultimate Escape.<br>Done Right.</h1>
+          <p class="hero-copy">From Macao ATV & Buggies, high-speed jet skis, and Isla Saona island escapes to live-DJ hip-hop party boats, elite nightlife, VIP club sections, private parties, secure private transport, and professional security, THF delivers the ultimate lineup. If you have something else in mind, just tell us and we'll make it happen.</p>
+          <nav class="hero-explore" aria-label="Explore THF categories">
+            <p>Explore what THF offers</p>
+            <div>
+              <a href="tours.html">Tours &amp; Excursions <span aria-hidden="true">→</span></a>
+              <a href="nightlife.html">Nightlife <span aria-hidden="true">→</span></a>
+              <a href="transport.html">Private Transport <span aria-hidden="true">→</span></a>
+            </div>
+          </nav>
         </div>
       </div>
     </section>
@@ -121,7 +119,7 @@
       </div>
     </section>
 
-    <section class="section section--dark" id="nightlife" aria-labelledby="nightlife-heading">
+    <section class="section section--dark homepage-nightlife" id="nightlife" style="--section-image: url('public/images/Nightlife.png');" aria-labelledby="nightlife-heading">
       <div class="shell">
         <div class="nightlife-panel">
           <div class="nightlife-panel__inner">
@@ -133,6 +131,24 @@
               <a class="button button--outline" href="index.html?service=private-events#inquiry">Enquire About a Private Event <span aria-hidden="true">→</span></a>
             </div>
           </div>
+          <div class="nightlife-venue-grid" aria-label="Featured Punta Cana nightlife venues">
+            <article class="nightlife-venue">
+              <button class="experience-preview" type="button" data-open-experience="venue-empire" aria-label="Open Empire Club details and photos"><img src="public/images/nightlife_Empire_Club.jpg" alt="Empire Club nightlife scene" loading="lazy"></button>
+              <div><p class="service-number">Venue 01</p><h3>Empire Club</h3><p>Club reservations and VIP-section requests for your group.</p></div>
+            </article>
+            <article class="nightlife-venue">
+              <button class="experience-preview" type="button" data-open-experience="venue-infinity" aria-label="Open Infinity Club details and photos"><img src="public/images/Nightlife_Infinity_Club.webp" alt="Infinity Club nightlife scene" loading="lazy"></button>
+              <div><p class="service-number">Venue 02</p><h3>Infinity Club</h3><p>Explore reservations or a VIP-section request for your night out.</p></div>
+            </article>
+            <article class="nightlife-venue">
+              <button class="experience-preview" type="button" data-open-experience="venue-movie" aria-label="Open MOVIE Club details and photos"><img src="public/images/nightlife_MOVIE_Club.jpg" alt="MOVIE Club nightlife scene" loading="lazy"></button>
+              <div><p class="service-number">Venue 03</p><h3>MOVIE Club</h3><p>Another standout option for group nightlife planning.</p></div>
+            </article>
+            <article class="nightlife-venue">
+              <button class="experience-preview" type="button" data-open-experience="venue-infinity-stripclub" aria-label="Open Infinity Stripclub details and photos"><img src="public/images/Nightlife_Infinity_Stripclub.webp" alt="Infinity Stripclub interior" loading="lazy"></button>
+              <div><p class="service-number">Venue 04</p><h3>Infinity Stripclub</h3><p>A separate adult-nightlife venue from Infinity Club.</p></div>
+            </article>
+          </div>
           <div class="offer-grid" aria-label="Nightlife offerings">
             <div class="offer"><h3>Club Reservations</h3><p>Share your preferred date, group size, and music preferences to explore options.</p></div>
             <div class="offer"><h3>VIP Sections</h3><p>Ask about a dedicated space, pricing, and available arrangements.</p></div>
@@ -143,9 +159,8 @@
       </div>
     </section>
 
-    <section class="section section--white" id="transport" aria-labelledby="transport-heading">
-      <div class="shell transport-split">
-        <button class="experience-preview transport-split__image" type="button" data-open-experience="transport" aria-label="Open Private Transport details and photos"><img class="transport-branding-visible" src="public/images/transport2.png" alt="Private vehicle arriving at a Punta Cana resort setting" loading="lazy"></button>
+    <section class="section homepage-transport" id="transport" style="--section-image: url('public/images/transport2.png');" aria-labelledby="transport-heading">
+      <div class="shell transport-split transport-split--home">
         <div>
           <p class="eyebrow">03 / Move with ease</p>
           <h2 id="transport-heading">Private Transport</h2>
@@ -164,11 +179,6 @@
             <h2 id="about-heading">About THF</h2>
             <p>THF helps visitors plan tours and excursions, premium nightlife, and private transport around Bávaro and Punta Cana. Start with the dates, group size, and details that matter to your trip.</p>
           </div>
-        </div>
-        <div class="category-rail">
-          <a href="tours.html"><small>01</small><strong>Tours &amp; Excursions</strong></a>
-          <a href="nightlife.html"><small>02</small><strong>Premium Nightlife</strong></a>
-          <a href="transport.html"><small>03</small><strong>Private Transport</strong></a>
         </div>
       </div>
     </section>

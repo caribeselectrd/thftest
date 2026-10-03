@@ -181,6 +181,11 @@ button { cursor: pointer; }
 .hero-ledger { display: flex; flex-wrap: wrap; gap: .55rem .8rem; margin: 3.1rem 0 0; padding: 0; list-style: none; }
 .hero-ledger li { padding-right: .8rem; border-right: 1px solid rgba(230, 211, 168, .48); color: var(--champagne); font-size: .72rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
 .hero-ledger li:last-child { border: 0; }
+.hero-explore { margin-top: 2.25rem; }
+.hero-explore > p { margin: 0 0 .7rem; color: var(--gold); font-size: .73rem; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
+.hero-explore > div { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid rgba(230,211,168,.38); border-left: 1px solid rgba(230,211,168,.38); }
+.hero-explore a { display: flex; min-height: 64px; align-items: center; justify-content: space-between; gap: .6rem; padding: .8rem .9rem; border-right: 1px solid rgba(230,211,168,.38); border-bottom: 1px solid rgba(230,211,168,.38); color: var(--ivory); font-size: .73rem; font-weight: 900; letter-spacing: .06em; line-height: 1.2; text-transform: uppercase; transition: color .2s ease, background .2s ease; }
+.hero-explore a:hover { color: var(--ink); background: var(--gold); }
 
 .page-hero {
   position: relative;
@@ -372,17 +377,31 @@ button { cursor: pointer; }
 .booking-note--light { color: var(--muted); border-color: var(--deep-gold); }
 
 .nightlife-panel { position: relative; overflow: hidden; padding: clamp(2rem, 5vw, 4.8rem); border: 1px solid rgba(230,211,168,.32); background: radial-gradient(circle at 84% 0, rgba(198,161,91,.24), transparent 28%), #171717; }
+.homepage-nightlife { background-image: linear-gradient(90deg, rgba(6,6,6,.86) 0%, rgba(6,6,6,.68) 48%, rgba(6,6,6,.48)), var(--section-image, none); background-position: center; background-size: cover; }
+.homepage-nightlife .nightlife-panel { background: rgba(17,17,17,.82); backdrop-filter: blur(4px); }
 .nightlife-panel::after { position: absolute; right: -12%; bottom: -36%; width: 48%; aspect-ratio: 1; content: ''; border: 1px solid rgba(230,211,168,.25); border-radius: 50%; }
 .nightlife-panel__inner { position: relative; z-index: 1; max-width: 750px; }
 .nightlife-panel h2 { margin: 0; font-size: clamp(2.6rem, 5vw, 4.7rem); font-weight: 400; letter-spacing: -.05em; line-height: .97; }
 .nightlife-panel p { max-width: 680px; margin: 1.2rem 0 0; color: rgba(247,243,235,.77); }
 .nightlife-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 2rem; }
+.nightlife-venue-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 3rem; }
+.nightlife-venue { overflow: hidden; border: 1px solid rgba(230,211,168,.3); background: rgba(8,8,8,.64); }
+.nightlife-venue .experience-preview { min-height: 260px; }
+.nightlife-venue .experience-preview img { min-height: 260px; }
+.nightlife-venue > div { padding: 1.2rem 1.25rem 1.3rem; }
+.nightlife-venue .service-number { margin: 0 0 .55rem; color: var(--gold); font-size: .66rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+.nightlife-venue h3 { margin: 0; color: var(--ivory); font-size: 1.75rem; font-weight: 400; letter-spacing: -.035em; line-height: 1; }
+.nightlife-venue > div > p:last-child { margin: .65rem 0 0; color: rgba(247,243,235,.68); font-size: .9rem; line-height: 1.5; }
 .offer-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; margin-top: 3rem; background: rgba(230,211,168,.28); }
 .offer { min-height: 170px; padding: 1.25rem; background: rgba(17,17,17,.85); }
 .offer h3 { margin: 0; color: var(--champagne); font-size: 1.45rem; font-weight: 400; letter-spacing: -.03em; line-height: 1; }
 .offer p { margin-top: .6rem; font-size: .86rem; line-height: 1.45; }
 
 .transport-split { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(2rem, 5vw, 5.5rem); align-items: center; }
+.homepage-transport { color: var(--ivory); background-image: linear-gradient(90deg, rgba(8,8,8,.90) 0%, rgba(8,8,8,.61) 46%, rgba(8,8,8,.20)), var(--section-image, none); background-position: center 68%; background-size: cover; }
+.transport-split--home { display: block; }
+.transport-split--home > div { max-width: 650px; padding: clamp(1.5rem, 4vw, 3rem); border: 1px solid rgba(230,211,168,.35); background: rgba(17,17,17,.72); backdrop-filter: blur(4px); }
+.homepage-transport .pill-row li { border-color: rgba(230,211,168,.58); color: var(--champagne); }
 .transport-split__image { min-height: 410px; background: #ded9d0; }
 .transport-split__image img { width: 100%; height: 100%; object-fit: contain; object-position: center 78%; }
 .transport-branding-visible { object-position: center 78% !important; }
@@ -494,9 +513,9 @@ button { cursor: pointer; }
   .brand { width: 67px; height: 46px; }
   .brand img { max-height: 46px; }
   .nav-toggle { display: block; }
-  .site-nav { position: absolute; top: 100%; right: 0; left: 0; display: none; padding: .65rem .75rem 1rem; border-top: 1px solid rgba(230,211,168,.18); background: #111; }
+  .site-nav { position: absolute; top: 100%; right: 0; left: 0; display: none; max-height: calc(100svh - 69px); gap: .25rem; padding: .65rem .75rem 1rem; overflow-y: auto; border-top: 1px solid rgba(230,211,168,.18); background: #111; }
   .site-nav.is-open { display: grid; }
-  .site-nav a { padding: .8rem .4rem; font-size: .75rem; }
+  .site-nav a { padding: .95rem .7rem; border: 1px solid rgba(230,211,168,.17); font-size: .75rem; }
   .site-nav a::after { right: auto; bottom: .45rem; left: .4rem; width: 36px; }
   .nav-cta { margin: .55rem .4rem 0; }
   .hero-inner, .page-hero-inner, .shell, .footer-shell { width: min(100% - 1.5rem, 1240px); }
@@ -505,6 +524,8 @@ button { cursor: pointer; }
   .hero-content h1 { font-size: clamp(3.3rem, 14vw, 5rem); }
   .hero-copy { font-size: 1rem; }
   .hero-ledger { margin-top: 2rem; }
+  .hero-explore { margin-top: 1.8rem; }
+  .hero-explore > div { grid-template-columns: 1fr; }
   .page-hero-inner { min-height: 430px; padding: 6rem 0 3rem; }
   .page-hero--light { background-image: linear-gradient(0deg, rgba(247,243,235,.98), rgba(247,243,235,.76) 63%, rgba(247,243,235,.2)), var(--hero-image, none); }
   .page-hero--transport { background-position: center 68%; background-size: cover; }
@@ -519,7 +540,9 @@ button { cursor: pointer; }
   .private-feature__visual { min-height: 350px; }
   .feature-list { grid-template-columns: 1fr; }
   .offer-grid { margin-top: 2rem; }
+  .nightlife-venue-grid { grid-template-columns: 1fr; margin-top: 2rem; }
   .transport-split__image { min-height: 320px; order: -1; }
+  .transport-split--home > div { padding: 1.4rem; }
   .category-rail { grid-template-columns: 1fr; }
   .category-rail a { min-height: 0; }
   .split-media { grid-template-columns: 1fr; }
