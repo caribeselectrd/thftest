@@ -172,7 +172,7 @@ button { cursor: pointer; }
 .hero-ledger li:last-child { border: 0; }
 .hero-explore { margin-top: 2.25rem; }
 .hero-explore > p { margin: 0 0 .7rem; color: var(--gold); font-size: .73rem; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
-.hero-explore > div { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid rgba(230,211,168,.38); border-left: 1px solid rgba(230,211,168,.38); }
+.hero-explore > div { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); border-top: 1px solid rgba(230,211,168,.38); border-left: 1px solid rgba(230,211,168,.38); }
 .hero-explore a { display: flex; min-height: 64px; align-items: center; justify-content: space-between; gap: .6rem; padding: .8rem .9rem; border-right: 1px solid rgba(230,211,168,.38); border-bottom: 1px solid rgba(230,211,168,.38); color: var(--ivory); font-size: .73rem; font-weight: 900; letter-spacing: .06em; line-height: 1.2; text-transform: uppercase; transition: color .2s ease, background .2s ease; }
 .hero-explore a:hover { color: var(--ink); background: var(--gold); }
 .footer-explore { padding-block: clamp(3.4rem, 6vw, 5rem); }

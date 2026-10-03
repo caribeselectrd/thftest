@@ -129,6 +129,24 @@
         ['public/images/Isla Saona8.jpg', 'Boat on clear turquoise water near Isla Saona', 'Clear water around the island.']
       ]
     },
+    'thf-boat-party': {
+      title: 'THF Boat Party with DJ Griggs',
+      lead: 'Houston energy meets the Punta Cana coast. Join THF on November 14 for an adults-only boat party across two private yachts, with special guest DJ Griggs, drinks, and a day on the water.',
+      copy: [
+        'On November 14, THF takes the party offshore. Special guest DJ Griggs is coming from Houston to Punta Cana to bring the soundtrack to an exclusive celebration across two private yachts.',
+        'Bring your crew, step aboard, and settle into a day of ocean views, music, and good company. Expect Hip-Hop, R&B, Dancehall, and Afrobeats, with an animation dance team keeping the energy moving and cold drinks ready between tracks.',
+        'Your day includes the essentials of our regular party boat experience: round-trip transportation, snacks and fresh fruit, alcoholic beverages, bottled water, soda, and snorkeling gear. Two private yachts give this THF event its own setting—a shared celebration out on the Punta Cana coast.'
+      ],
+      includedTitle: 'What’s Included',
+      list: ['Round-trip transportation', 'Snacks and fresh fruits', 'Alcoholic beverages', 'Bottled water', 'Soda/Pop', 'Snorkeling gear', 'Live Hip-Hop, R&B, Dancehall, and Afrobeats DJ set with special guest DJ Griggs', 'Animation dance team'],
+      note: 'Adults only. November 14, 2026. Departure time, pickup arrangements, and availability are confirmed with your inquiry.',
+      service: 'thf-boat-party',
+      bookingDate: '2026-11-14',
+      gallery: [
+        ['public/images/PrivateYath.avif', 'Private yacht on clear water', 'Private yacht experience imagery.'],
+        ['public/images/partyboat3.jpg', 'Party boat guests enjoying music and clear water', 'A taste of the THF party boat atmosphere.']
+      ]
+    },
     nightlife: {
       label: 'Nightlife & Private Events',
       title: 'Premium Nightlife in Punta Cana',
@@ -320,10 +338,11 @@
     quickPlan.appendChild(quickPlanFields);
     const quickPlanButton = document.createElement('a');
     quickPlanButton.className = 'button button--dark inline-quick-plan__button';
-    quickPlanButton.textContent = experience.service === 'private-security' ? 'Enquire now' : 'Plan now';
+    quickPlanButton.textContent = 'Plan now';
     function updateQuickPlanLink() {
       const params = new URLSearchParams();
       params.set('service', experience.service);
+      if (experience.bookingDate) params.set('date', experience.bookingDate);
       if (guests.value) params.set('guests', guests.value);
       if (timing && timing.value) params.set('time', timing.value);
       quickPlanButton.href = 'index.html?' + params.toString() + '#inquiry';
@@ -421,7 +440,7 @@
       event.preventDefault();
       toggleInlineDetails(details, trigger, gallery);
     });
-    const existingPlan = host.querySelector('a[href*="#inquiry"]');
+    const existingPlan = Array.from(host.querySelectorAll('a[href*="#inquiry"]')).find(function (link) { return !link.closest('.inline-experience-details'); });
     if (existingPlan) existingPlan.remove();
   });
 
@@ -492,6 +511,9 @@
       service.value = requestedService;
     }
     const requestedGuests = requestParams.get('guests');
+    const requestedDate = requestParams.get('date');
+    const dateField = document.getElementById('date');
+    if (requestedDate && dateField && /^\d{4}-\d{2}-\d{2}$/.test(requestedDate)) dateField.value = requestedDate;
     const groupSize = document.getElementById('group-size');
     if (requestedGuests && groupSize) groupSize.value = requestedGuests.replace('+', '');
     const requestedTime = requestParams.get('time');
