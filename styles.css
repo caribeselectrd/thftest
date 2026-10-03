@@ -268,6 +268,31 @@ button { cursor: pointer; }
 .experience-preview:hover img, .experience-preview:focus-visible img { transform: scale(1.025); }
 .experience-preview:hover::after, .experience-preview:focus-visible::after { opacity: 1; transform: translateY(0); }
 .experience-preview--tall, .experience-preview--tall img { min-height: 340px; }
+.experience-gallery { position: relative; display: grid; height: 300px; min-height: 0; overflow: hidden; place-items: center; background: transparent; }
+.experience-gallery--tall { height: 340px; }
+.experience-gallery--feature { height: 520px; }
+.experience-gallery--transport { height: 410px; background: #ded9d0; }
+.nightlife-venue .experience-gallery { height: 260px; }
+.experience-gallery__image { width: 100%; height: 100%; min-height: 0; padding: 0; border: 0; background: transparent; cursor: zoom-in; }
+.experience-gallery__image img { width: 100%; height: 100%; min-height: 0; object-fit: cover; background: transparent; }
+.experience-gallery__previous, .experience-gallery__next { position: absolute; z-index: 2; top: 50%; display: grid; width: 36px; height: 40px; place-items: center; padding: 0; border: 1px solid rgba(230,211,168,.34); color: rgba(247,243,235,.82); background: rgba(8,8,8,.32); font-size: 1.55rem; line-height: 1; transform: translateY(-50%); }
+.experience-gallery__previous { left: .9rem; }
+.experience-gallery__next { right: .9rem; }
+.experience-gallery__previous:hover, .experience-gallery__next:hover { color: var(--ink); background: rgba(230,211,168,.95); border-color: var(--champagne); }
+.experience-gallery__caption, .experience-gallery__counter { position: absolute; bottom: .85rem; margin: 0; color: rgba(247,243,235,.87); font-size: .73rem; font-weight: 700; line-height: 1.35; }
+.experience-gallery__caption { left: 1rem; max-width: calc(100% - 7rem); }
+.experience-gallery__counter { right: 1rem; padding: .38rem .55rem; color: var(--champagne); background: rgba(8,8,8,.68); font-size: .68rem; letter-spacing: .08em; }
+.experience-gallery:fullscreen { width: 100vw; height: 100vh; max-width: none; max-height: none; background: #050505; }
+.experience-gallery:fullscreen .experience-gallery__image, .experience-gallery:fullscreen .experience-gallery__image img { min-height: 100vh; }
+.inline-experience-actions { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: 1.2rem; }
+.inline-experience-details { margin-top: 1.35rem; padding-top: 1.3rem; border-top: 1px solid currentColor; }
+.inline-experience-details h4 { margin: 0 0 .8rem; font-family: var(--display); font-size: 1.45rem; font-weight: 400; }
+.inline-experience-details p { margin: 0 0 .9rem; }
+.inline-experience-details ul { display: grid; gap: .45rem; margin: 1rem 0; padding: 0; list-style: none; }
+.inline-experience-details li { padding-top: .55rem; border-top: 1px solid rgba(128,96,37,.3); }
+.inline-experience-details__note { padding: .75rem .9rem; border-left: 3px solid var(--gold); background: rgba(230,211,168,.14); font-size: .86rem; }
+.section--dark .inline-experience-details, .section--charcoal .inline-experience-details { color: rgba(247,243,235,.82); }
+.section--dark .inline-experience-details li, .section--charcoal .inline-experience-details li { border-color: rgba(230,211,168,.25); }
 .experience-card { grid-column: span 4; overflow: hidden; border: 1px solid var(--line); background: #fffdfa; }
 .experience-card--wide { grid-column: span 6; }
 .experience-card__body { display: flex; min-height: 195px; flex-direction: column; padding: 1.25rem; }
@@ -534,6 +559,8 @@ button { cursor: pointer; }
   .service-card__image, .fallback-art { min-height: 255px; }
   .experience-preview, .experience-preview img { min-height: 260px; }
   .experience-preview--tall, .experience-preview--tall img { min-height: 300px; }
+  .experience-gallery, .experience-gallery--tall, .experience-gallery--feature, .experience-gallery--transport, .nightlife-venue .experience-gallery { height: min(66svh, 540px); min-height: 0; }
+  .experience-gallery__previous, .experience-gallery__next { width: 34px; height: 38px; }
   .private-feature__visual { min-height: 350px; }
   .feature-list { grid-template-columns: 1fr; }
   .offer-grid { margin-top: 2rem; }
@@ -565,6 +592,12 @@ button { cursor: pointer; }
   .hero-actions .button, .nightlife-actions .button { width: 100%; }
   .hero-ledger { display: grid; grid-template-columns: 1fr 1fr; }
   .hero-ledger li { padding-right: 0; border-right: 0; }
+  .experience-gallery, .experience-gallery--tall, .experience-gallery--feature, .experience-gallery--transport, .nightlife-venue .experience-gallery { height: min(70svh, 560px); min-height: 0; }
+  .experience-gallery__previous { left: .55rem; }
+  .experience-gallery__next { right: .55rem; }
+  .experience-gallery__caption { bottom: .7rem; left: .75rem; font-size: .69rem; }
+  .experience-gallery__counter { right: .75rem; bottom: .7rem; }
+  .inline-experience-actions { display: grid; grid-template-columns: 1fr; }
   .section { padding: 3.15rem 0; }
   .offer-grid { grid-template-columns: 1fr; }
   .inquiry-form { grid-template-columns: 1fr; }

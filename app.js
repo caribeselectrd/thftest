@@ -248,88 +248,157 @@
     }
   };
 
-  const experienceTriggers = document.querySelectorAll('[data-open-experience]');
-  if (experienceTriggers.length) {
-    const dialog = document.createElement('dialog');
-    dialog.className = 'experience-modal';
-    dialog.setAttribute('data-experience-modal', '');
-    dialog.setAttribute('aria-label', 'Experience details');
-    dialog.innerHTML = '<button class="experience-modal__close" type="button" aria-label="Close experience details">×</button><div class="experience-modal__grid"><div class="experience-modal__media"><button class="experience-modal__previous" type="button" aria-label="Show previous image">←</button><img data-modal-image alt=""><button class="experience-modal__next" type="button" aria-label="Show next image">→</button><p class="experience-modal__caption" data-modal-caption></p><p class="experience-modal__counter" data-modal-counter></p></div><div class="experience-modal__content"><p class="eyebrow" data-modal-label></p><h2 data-modal-title></h2><p class="experience-modal__lead" data-modal-lead></p><div class="experience-modal__copy" data-modal-copy></div><ul class="experience-modal__list" data-modal-list></ul><p class="experience-modal__note" data-modal-note></p><a class="button" data-modal-cta>Plan this experience <span aria-hidden="true">→</span></a></div></div>';
-    document.body.appendChild(dialog);
+  const galleriesByExperience = {};
 
-    const modalImage = dialog.querySelector('[data-modal-image]');
-    const modalCaption = dialog.querySelector('[data-modal-caption]');
-    const modalCounter = dialog.querySelector('[data-modal-counter]');
-    const modalLabel = dialog.querySelector('[data-modal-label]');
-    const modalTitle = dialog.querySelector('[data-modal-title]');
-    const modalLead = dialog.querySelector('[data-modal-lead]');
-    const modalCopy = dialog.querySelector('[data-modal-copy]');
-    const modalList = dialog.querySelector('[data-modal-list]');
-    const modalNote = dialog.querySelector('[data-modal-note]');
-    const modalCta = dialog.querySelector('[data-modal-cta]');
-    const previous = dialog.querySelector('.experience-modal__previous');
-    const next = dialog.querySelector('.experience-modal__next');
-    const close = dialog.querySelector('.experience-modal__close');
-    let activeExperience = null;
-    let activeImageIndex = 0;
-
-    function renderActiveImage() {
-      const image = activeExperience.gallery[activeImageIndex];
-      modalImage.src = image[0];
-      modalImage.alt = image[1];
-      modalCaption.textContent = image[2];
-      modalCounter.textContent = 'Photo ' + (activeImageIndex + 1) + ' of ' + activeExperience.gallery.length;
-      const hasMultiple = activeExperience.gallery.length > 1;
-      previous.hidden = !hasMultiple;
-      next.hidden = !hasMultiple;
-    }
-
-    function moveImage(direction) {
-      activeImageIndex = (activeImageIndex + direction + activeExperience.gallery.length) % activeExperience.gallery.length;
-      renderActiveImage();
-    }
-
-    function openExperience(key) {
-      const experience = experiences[key];
-      if (!experience) return;
-      activeExperience = experience;
-      activeImageIndex = 0;
-      modalLabel.textContent = experience.label;
-      modalTitle.textContent = experience.title;
-      modalLead.textContent = experience.lead;
-      modalCopy.replaceChildren();
-      experience.copy.forEach(function (paragraph) {
-        const p = document.createElement('p');
-        p.textContent = paragraph;
-        modalCopy.appendChild(p);
-      });
-      modalList.replaceChildren();
-      experience.list.forEach(function (item) {
-        const li = document.createElement('li');
-        li.textContent = item;
-        modalList.appendChild(li);
-      });
-      modalNote.textContent = experience.note;
-      modalCta.href = 'index.html?service=' + encodeURIComponent(experience.service) + '#inquiry';
-      modalCta.firstChild.textContent = experience.service === 'private-security' ? 'Enquire About Private Security ' : 'Plan this experience ';
-      renderActiveImage();
-      dialog.showModal();
-      close.focus();
-    }
-
-    experienceTriggers.forEach(function (trigger) {
-      trigger.addEventListener('click', function () { openExperience(trigger.dataset.openExperience); });
-    });
-    previous.addEventListener('click', function () { moveImage(-1); });
-    next.addEventListener('click', function () { moveImage(1); });
-    close.addEventListener('click', function () { dialog.close(); });
-    dialog.addEventListener('click', function (event) { if (event.target === dialog) dialog.close(); });
-    dialog.addEventListener('keydown', function (event) {
-      if (!activeExperience || activeExperience.gallery.length < 2) return;
-      if (event.key === 'ArrowLeft') { event.preventDefault(); moveImage(-1); }
-      if (event.key === 'ArrowRight') { event.preventDefault(); moveImage(1); }
-    });
+  function detailsHost(gallery) {
+    const card = gallery.closest('.service-card, .experience-card, .nightlife-venue');
+    if (card) return card.querySelector('.service-card__body, .experience-card__body, .nightlife-venue > div') || card;
+    const grid = gallery.closest('.detail-grid');
+    if (grid) return grid.querySelector('.detail-copy') || grid;
+    const feature = gallery.closest('.private-feature');
+    if (feature) return feature.querySelector('.private-feature__content') || feature;
+    return gallery.parentElement;
   }
+
+  function buildInlineDetails(experience, host) {
+    let details = host.querySelector('.inline-experience-details[data-experience="' + experience.service + '"]');
+    if (details) return details;
+    details = document.createElement('div');
+    details.className = 'inline-experience-details';
+    details.dataset.experience = experience.service;
+    details.hidden = true;
+    const heading = document.createElement('h4');
+    heading.textContent = 'Experience details';
+    details.appendChild(heading);
+    experience.copy.forEach(function (paragraph) {
+      const p = document.createElement('p');
+      p.textContent = paragraph;
+      details.appendChild(p);
+    });
+    const list = document.createElement('ul');
+    experience.list.forEach(function (item) {
+      const li = document.createElement('li');
+      li.textContent = item;
+      list.appendChild(li);
+    });
+    details.appendChild(list);
+    const note = document.createElement('p');
+    note.className = 'inline-experience-details__note';
+    note.textContent = experience.note;
+    details.appendChild(note);
+    host.appendChild(details);
+    return details;
+  }
+
+  function makeGallery(trigger, key) {
+    const experience = experiences[key];
+    if (!experience) return;
+    const gallery = document.createElement('section');
+    gallery.className = 'experience-gallery';
+    if (trigger.classList.contains('experience-preview--tall')) gallery.classList.add('experience-gallery--tall');
+    if (trigger.classList.contains('private-feature__visual')) gallery.classList.add('experience-gallery--feature');
+    if (trigger.classList.contains('transport-split__image')) gallery.classList.add('experience-gallery--transport');
+    gallery.dataset.experience = key;
+    gallery.tabIndex = 0;
+    gallery.setAttribute('aria-label', experience.title + ' photo gallery');
+    gallery.innerHTML = '<button class="experience-gallery__previous" type="button" aria-label="Show previous photo">‹</button><button class="experience-gallery__image" type="button" aria-label="View photo fullscreen"><img alt=""></button><button class="experience-gallery__next" type="button" aria-label="Show next photo">›</button><p class="experience-gallery__caption"></p><p class="experience-gallery__counter"></p>';
+    trigger.replaceWith(gallery);
+    const image = gallery.querySelector('img');
+    const caption = gallery.querySelector('.experience-gallery__caption');
+    const counter = gallery.querySelector('.experience-gallery__counter');
+    const previous = gallery.querySelector('.experience-gallery__previous');
+    const next = gallery.querySelector('.experience-gallery__next');
+    const imageButton = gallery.querySelector('.experience-gallery__image');
+    let imageIndex = 0;
+
+    function render() {
+      const item = experience.gallery[imageIndex];
+      image.src = item[0];
+      image.alt = item[1];
+      caption.textContent = item[2];
+      counter.textContent = (imageIndex + 1) + ' / ' + experience.gallery.length;
+      const showControls = experience.gallery.length > 1;
+      previous.hidden = !showControls;
+      next.hidden = !showControls;
+    }
+    function move(direction) {
+      imageIndex = (imageIndex + direction + experience.gallery.length) % experience.gallery.length;
+      render();
+    }
+    previous.addEventListener('click', function () { move(-1); });
+    next.addEventListener('click', function () { move(1); });
+    gallery.addEventListener('keydown', function (event) {
+      if (event.key === 'ArrowLeft') { event.preventDefault(); move(-1); }
+      if (event.key === 'ArrowRight') { event.preventDefault(); move(1); }
+    });
+    imageButton.addEventListener('click', function () {
+      if (window.matchMedia('(min-width: 821px)').matches && gallery.requestFullscreen) gallery.requestFullscreen();
+    });
+    render();
+    galleriesByExperience[key] = galleriesByExperience[key] || [];
+    galleriesByExperience[key].push(gallery);
+  }
+
+  document.querySelectorAll('button.experience-preview[data-open-experience]').forEach(function (trigger) {
+    makeGallery(trigger, trigger.dataset.openExperience);
+  });
+
+  document.querySelectorAll('[data-open-experience]').forEach(function (trigger) {
+    const key = trigger.dataset.openExperience;
+    const experience = experiences[key];
+    if (!experience || trigger.classList.contains('experience-preview')) return;
+    const scope = trigger.closest('.service-card, .experience-card, .nightlife-venue, .detail-grid, .private-feature') || document;
+    const gallery = scope.querySelector('.experience-gallery[data-experience="' + key + '"]') || (galleriesByExperience[key] || [])[0];
+    if (!gallery) return;
+    const host = detailsHost(gallery);
+    const details = buildInlineDetails(experience, host);
+    trigger.classList.add('inline-details-trigger');
+    trigger.innerHTML = 'View details <span aria-hidden="true">↓</span>';
+    trigger.setAttribute('aria-expanded', 'false');
+    trigger.addEventListener('click', function (event) {
+      event.preventDefault();
+      details.hidden = !details.hidden;
+      trigger.setAttribute('aria-expanded', String(!details.hidden));
+      if (!details.hidden) details.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+    const existingPlan = host.querySelector('a[href*="#inquiry"]');
+    if (existingPlan) {
+      existingPlan.classList.add('inline-plan-link');
+      existingPlan.textContent = experience.service === 'private-security' ? 'Enquire now' : 'Plan now';
+    } else {
+      const plan = document.createElement('a');
+      plan.className = 'button button--dark inline-plan-link';
+      plan.href = 'index.html?service=' + encodeURIComponent(experience.service) + '#inquiry';
+      plan.textContent = experience.service === 'private-security' ? 'Enquire now' : 'Plan now';
+      trigger.insertAdjacentElement('afterend', plan);
+    }
+  });
+
+  document.querySelectorAll('.experience-gallery').forEach(function (gallery) {
+    const key = gallery.dataset.experience;
+    const experience = experiences[key];
+    const host = detailsHost(gallery);
+    if (!experience || host.querySelector('[data-open-experience="' + key + '"]')) return;
+    const details = buildInlineDetails(experience, host);
+    const actions = document.createElement('div');
+    actions.className = 'inline-experience-actions';
+    const detailsButton = document.createElement('button');
+    detailsButton.className = 'button button--dark inline-details-trigger';
+    detailsButton.type = 'button';
+    detailsButton.innerHTML = 'View details <span aria-hidden="true">↓</span>';
+    detailsButton.setAttribute('aria-expanded', 'false');
+    detailsButton.addEventListener('click', function () {
+      details.hidden = !details.hidden;
+      detailsButton.setAttribute('aria-expanded', String(!details.hidden));
+      if (!details.hidden) details.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+    const plan = document.createElement('a');
+    plan.className = 'button button--outline inline-plan-link';
+    plan.href = 'index.html?service=' + encodeURIComponent(experience.service) + '#inquiry';
+    plan.textContent = experience.service === 'private-security' ? 'Enquire now' : 'Plan now';
+    actions.append(detailsButton, plan);
+    host.appendChild(actions);
+  });
 
   document.querySelectorAll('[data-gallery-scroll]').forEach(function (button) {
     button.addEventListener('click', function () {
