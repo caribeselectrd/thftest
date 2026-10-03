@@ -581,6 +581,8 @@ button { cursor: pointer; }
   .experience-gallery, .experience-gallery--tall, .experience-gallery--feature, .experience-gallery--transport, .nightlife-venue .experience-gallery { height: auto; min-height: 0; aspect-ratio: 16 / 9; }
   .experience-gallery__image img { object-fit: cover; }
   .experience-gallery__previous, .experience-gallery__next { width: 34px; height: 38px; }
+  .experience-gallery__caption { position: absolute !important; z-index: 4 !important; bottom: .8rem !important; left: .8rem !important; display: block; max-width: calc(100% - 6.5rem); margin: 0; color: #fff !important; opacity: 1; font-size: .72rem; font-weight: 800; line-height: 1.35; text-align: left; text-shadow: 0 2px 7px rgba(0,0,0,.9); }
+  .experience-gallery__counter { z-index: 4; right: .8rem; bottom: .8rem; }
   .private-feature__visual { min-height: 350px; }
   .feature-list { grid-template-columns: 1fr; }
   .offer-grid { margin-top: 2rem; }
@@ -615,8 +617,8 @@ button { cursor: pointer; }
   .experience-gallery, .experience-gallery--tall, .experience-gallery--feature, .experience-gallery--transport, .nightlife-venue .experience-gallery { height: auto; min-height: 0; aspect-ratio: 16 / 9; }
   .experience-gallery__previous { left: .55rem; }
   .experience-gallery__next { right: .55rem; }
-  .experience-gallery__caption { bottom: .7rem; left: .75rem; font-size: .69rem; }
-  .experience-gallery__counter { right: .75rem; bottom: .7rem; }
+  .experience-gallery__caption { position: absolute !important; z-index: 4 !important; bottom: .8rem !important; left: .8rem !important; display: block; max-width: calc(100% - 6.5rem); margin: 0; color: #fff !important; opacity: 1; font-size: .72rem; font-weight: 800; line-height: 1.35; text-align: left; text-shadow: 0 2px 7px rgba(0,0,0,.9); }
+  .experience-gallery__counter { z-index: 4; right: .8rem; bottom: .8rem; }
   .inline-experience-actions { display: grid; grid-template-columns: 1fr; }
   .inline-quick-plan__fields { grid-template-columns: 1fr; }
   .inline-quick-plan__button { width: 100%; }
