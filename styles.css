@@ -214,13 +214,14 @@ button { cursor: pointer; }
 .page-hero--light .eyebrow { color: var(--deep-gold); }
 
 .main { overflow: hidden; }
-.section { padding: clamp(4.2rem, 8vw, 8rem) 0; }
+.section { padding: clamp(3.1rem, 5.5vw, 5.75rem) 0; }
 .section--ivory { background: var(--ivory); }
 .section--white { background: #fffdfa; }
 .section--dark { color: var(--ivory); background: var(--ink); }
 .section--charcoal { color: var(--ivory); background: var(--charcoal); }
+#tours { padding-top: clamp(1.75rem, 3.5vw, 3.25rem); }
 .shell { width: min(1240px, calc(100% - 2.5rem)); margin: 0 auto; }
-.section-intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(250px, .75fr); gap: 2rem 4rem; align-items: end; margin-bottom: 2.6rem; }
+.section-intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(250px, .75fr); gap: 1.5rem 3rem; align-items: end; margin-bottom: 1.75rem; }
 .section-intro--narrow { grid-template-columns: minmax(0, 780px); }
 .section-intro h2, .content-title h2 { max-width: 760px; margin: 0; font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 400; letter-spacing: -.05em; line-height: .97; }
 .section-intro p { max-width: 470px; margin: 0; color: var(--muted); }
@@ -230,14 +231,14 @@ button { cursor: pointer; }
 .content-title p { max-width: 690px; margin: 1.4rem 0 0; font-size: 1.1rem; }
 
 .service-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 1.25rem; }
-.service-card { grid-column: span 4; min-height: 420px; display: flex; flex-direction: column; overflow: hidden; background: #fffdfa; border: 1px solid var(--line); }
+.service-card { grid-column: span 4; min-height: 390px; display: flex; flex-direction: column; overflow: hidden; background: #fffdfa; border: 1px solid var(--line); }
 .service-card--wide { grid-column: span 8; }
 .service-card--half { grid-column: span 6; }
 .service-card--slim { min-height: 0; }
 .service-card__image, .media-frame { position: relative; overflow: hidden; background: var(--charcoal); }
 .service-card__image { min-height: 225px; }
 .service-card__image img, .media-frame img { width: 100%; height: 100%; object-fit: contain; background: #111; }
-.service-card__body { display: flex; flex: 1; flex-direction: column; padding: 1.55rem; }
+.service-card__body { display: flex; flex: 1; flex-direction: column; padding: 1.25rem; }
 .service-number { margin: 0 0 .7rem; color: var(--deep-gold); font-size: .72rem; font-weight: 900; letter-spacing: .14em; }
 .service-card h3 { margin: 0; font-size: 1.8rem; font-weight: 400; letter-spacing: -.03em; line-height: 1.05; }
 .service-card p { margin: .9rem 0 1.4rem; color: var(--muted); }
@@ -280,7 +281,7 @@ button { cursor: pointer; }
 .experience-preview--tall, .experience-preview--tall img { min-height: 340px; }
 .experience-card { grid-column: span 4; overflow: hidden; border: 1px solid var(--line); background: #fffdfa; }
 .experience-card--wide { grid-column: span 6; }
-.experience-card__body { display: flex; min-height: 225px; flex-direction: column; padding: 1.5rem; }
+.experience-card__body { display: flex; min-height: 195px; flex-direction: column; padding: 1.25rem; }
 .experience-card__body h3 { margin: 0; font-size: 1.85rem; font-weight: 400; letter-spacing: -.035em; line-height: 1.03; }
 .experience-card__body p { margin: .85rem 0 1.2rem; color: var(--muted); }
 .experience-card__actions { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: auto; }
@@ -374,7 +375,7 @@ button { cursor: pointer; }
 .fallback-art--night { background: radial-gradient(circle at 66% 40%, rgba(198,161,91,.49), transparent 5%), radial-gradient(circle at 34% 25%, rgba(198,161,91,.18), transparent 14%), linear-gradient(145deg, #080808, #2e2517); }
 .fallback-art--security { background: linear-gradient(145deg, #111, #181818 60%, #4b3a1b); }
 
-.private-feature { display: grid; grid-template-columns: minmax(0, 1.13fr) minmax(310px, .87fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+.private-feature { display: grid; grid-template-columns: minmax(0, 1.13fr) minmax(310px, .87fr); gap: clamp(1.5rem, 3.5vw, 3.75rem); align-items: center; }
 .private-feature__visual { position: relative; min-height: 520px; padding: clamp(1.5rem, 4vw, 3rem); display: flex; align-items: flex-end; background: radial-gradient(circle at 72% 24%, rgba(230,211,168,.55), transparent 10%), radial-gradient(circle at 83% 18%, rgba(198,161,91,.26), transparent 18%), linear-gradient(150deg, #3b514f 0%, #1d2927 48%, #111 100%); }
 .private-feature__visual > img { position: absolute; inset: 0; width: 100%; height: 100%; min-height: 0; object-fit: contain; }
 .private-feature__visual::before { position: absolute; }
@@ -388,13 +389,13 @@ button { cursor: pointer; }
 .booking-note { margin: 1.35rem 0 0; padding: 1rem 1.1rem; border-left: 3px solid var(--gold); color: rgba(247,243,235,.78); font-size: .88rem; }
 .booking-note--light { color: var(--muted); border-color: var(--deep-gold); }
 
-.nightlife-panel { position: relative; overflow: hidden; padding: clamp(2rem, 5vw, 4.8rem); border: 1px solid rgba(230,211,168,.32); background: radial-gradient(circle at 84% 0, rgba(198,161,91,.24), transparent 28%), #171717; }
+.nightlife-panel { position: relative; overflow: hidden; padding: clamp(1.4rem, 3vw, 3.25rem); border: 1px solid rgba(230,211,168,.32); background: radial-gradient(circle at 84% 0, rgba(198,161,91,.24), transparent 28%), #171717; }
 .nightlife-panel::after { position: absolute; right: -12%; bottom: -36%; width: 48%; aspect-ratio: 1; content: ''; border: 1px solid rgba(230,211,168,.25); border-radius: 50%; }
 .nightlife-panel__inner { position: relative; z-index: 1; max-width: 750px; }
 .nightlife-panel h2 { margin: 0; font-size: clamp(2.6rem, 5vw, 4.7rem); font-weight: 400; letter-spacing: -.05em; line-height: .97; }
 .nightlife-panel p { max-width: 680px; margin: 1.2rem 0 0; color: rgba(247,243,235,.77); }
 .nightlife-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 2rem; }
-.nightlife-venue-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 3rem; }
+.nightlife-venue-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 1.25rem; }
 .nightlife-venue { overflow: hidden; border: 1px solid rgba(230,211,168,.3); background: rgba(8,8,8,.64); }
 .nightlife-venue .experience-preview { min-height: 260px; }
 .nightlife-venue .experience-preview img { min-height: 260px; }
@@ -402,7 +403,7 @@ button { cursor: pointer; }
 .nightlife-venue .service-number { margin: 0 0 .55rem; color: var(--gold); font-size: .66rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
 .nightlife-venue h3 { margin: 0; color: var(--ivory); font-size: 1.75rem; font-weight: 400; letter-spacing: -.035em; line-height: 1; }
 .nightlife-venue > div > p:last-child { margin: .65rem 0 0; color: rgba(247,243,235,.68); font-size: .9rem; line-height: 1.5; }
-.offer-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; margin-top: 3rem; background: rgba(230,211,168,.28); }
+.offer-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; margin-top: 1.25rem; background: rgba(230,211,168,.28); }
 .offer { min-height: 170px; padding: 1.25rem; background: rgba(17,17,17,.85); }
 .offer h3 { margin: 0; color: var(--champagne); font-size: 1.45rem; font-weight: 400; letter-spacing: -.03em; line-height: 1; }
 .offer p { margin-top: .6rem; font-size: .86rem; line-height: 1.45; }
@@ -573,7 +574,7 @@ button { cursor: pointer; }
   .hero-actions .button, .nightlife-actions .button { width: 100%; }
   .hero-ledger { display: grid; grid-template-columns: 1fr 1fr; }
   .hero-ledger li { padding-right: 0; border-right: 0; }
-  .section { padding: 4.1rem 0; }
+  .section { padding: 3.15rem 0; }
   .offer-grid { grid-template-columns: 1fr; }
   .inquiry-form { grid-template-columns: 1fr; }
   .field--wide { grid-column: auto; }
