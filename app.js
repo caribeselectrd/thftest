@@ -37,7 +37,8 @@
         'After your cave stop, jump back on your ATV or buggy and continue toward Macao Beach, one of Punta Cana’s most beautiful and famous beaches. Here you’ll have time to relax by the ocean, take photos, enjoy the scenery, or purchase a drink or something to eat before heading back. Food and drinks at the beach are not included.',
         'With hotel transportation, Dominican culture, off-road adventure, a cave swim, and beach time all in one excursion, this is the perfect way to experience a more adventurous and authentic side of Punta Cana.'
       ],
-      list: ['Round-trip hotel transportation to the ranch', 'Organic coffee, cacao, and mamajuana tasting', 'Taíno freshwater cave swim', 'Time to relax and take photos at Macao Beach'],
+      includedTitle: 'What’s Included',
+      list: ['Round-trip transportation', 'ATV or buggy vehicle and safety helmet', 'Organic mamajuana, coffee, cacao, chocolate, and natural tea tasting', 'Professional tour guide and safety briefing', 'Taíno freshwater cave swimming', 'Time to relax and take photos at Macao Beach', 'Professional pictures available for purchase'],
       note: 'Food and drinks at Macao Beach are not included. Final timing, vehicle selection, and availability are confirmed with your quote.',
       service: 'buggies-atv',
       bookingTimes: ['8:30 AM', '11:30 AM', '2:30 PM'],
@@ -58,20 +59,20 @@
     },
     partyboat: {
       label: 'Tours & Excursions · On the water',
-      title: 'Hip-Hop Party Boat',
-      lead: 'A live DJ, open bar, swimming, snorkeling, and a lively sandbar stop—with Hip-Hop, R&B, Dancehall, and Afrobeats onboard.',
+      title: 'Hip-Hop Party Boat (Adults Only)',
+      lead: 'Catamaran party off the Punta Cana coast. Featuring a live DJ spinning Hip-Hop, R&B, Dancehall, and Afrobeats, and a natural pool stop where multiple catamarans tie together into a massive floating hangout.',
       copy: [
-        'Spend the day moving between music, open-water time, snorkeling, and the sandbar.',
-        'This is built for groups who want an energetic boat experience and a soundtrack that stays with the day from boarding through the swim stop.'
+        'Head out onto the water on an adults-only catamaran cruise. A live DJ keeps the soundtrack locked on Hip-Hop, R&B, Dancehall, and Afrobeats from the moment you board. Grab some complimentary rum punch, fresh fruit, and snacks on deck, then drop anchor at a shallow natural pool. Once there, multiple boats link up together, letting you hop across, mix with other crews, and keep the energy moving across the whole fleet.'
       ],
-      list: ['Live DJ onboard', 'Open bar', 'Swimming and snorkeling', 'Lively sandbar stop'],
+      includedTitle: 'What’s Included',
+      list: ['Round Trip Transportation', 'Snacks & Fresh Fruits', 'Alcoholic Beverages', 'Bottled Water', 'Soda/Pop', 'Snorkeling Gear', 'Live Hip-Hop, R&B, Dancehall, and Afrobeats DJ Set', 'Animation Dance Team'],
       note: 'Adults only. Availability, route, and onboard arrangements are confirmed with your quote.',
       service: 'hip-hop-party-boat',
       bookingTimes: ['2:30 PM'],
       gallery: [
         ['public/images/partyboat1.jpg', 'Guests gathered on a party boat in Punta Cana', 'Music and a social day on the water.'],
         ['public/images/partyboat2.jpg', 'Party boat guests enjoying their time onboard', 'Bring your group together onboard.'],
-        ['public/images/partyboat3.jpg', 'Guests enjoying music and clear water from a party boat', 'Music, time in the water, and a lively sandbar stop.'],
+        ['public/images/partyboat3.jpg', 'Guests enjoying music and clear water from a party boat', 'Music, time in the water, and a natural-pool link-up.'],
         ['public/images/partyboat4.jpg', 'Guests dancing onboard a party boat', 'Live music sets the pace for the day.']
       ]
     },
@@ -275,6 +276,12 @@
       p.textContent = paragraph;
       details.appendChild(p);
     });
+    if (experience.includedTitle) {
+      const includedHeading = document.createElement('h5');
+      includedHeading.className = 'inline-experience-details__included-heading';
+      includedHeading.textContent = experience.includedTitle;
+      details.appendChild(includedHeading);
+    }
     const list = document.createElement('ul');
     experience.list.forEach(function (item) {
       const li = document.createElement('li');
