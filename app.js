@@ -231,8 +231,7 @@
       note: 'Security arrangements are confirmed separately and are not included in transportation.',
       service: 'private-security',
       gallery: [
-        ['public/images/security_protection.png', 'Private security professional near a vehicle', 'Discreet security support, separately arranged.'],
-        ['public/images/security_protection2.png', 'Private security support in Punta Cana', 'Security support for your plan.']
+        ['public/images/security_protection.png', 'Private security professional near a vehicle', 'Discreet security support, separately arranged.']
       ]
     },
     transport: {
@@ -244,8 +243,7 @@
       note: 'Vehicle, route, timing, and selected arrangements are confirmed with your quote. An inquiry is not a confirmed reservation.',
       service: 'airport-pickup',
       gallery: [
-        ['public/images/transport2.png', 'Private vehicle arriving at a Punta Cana resort setting', 'Airport-arrival arrangement.'],
-        ['public/images/transport.png', 'Private vehicle for Punta Cana transport', 'Private transport in Punta Cana.']
+        ['public/images/transport2.png', 'Private vehicle arriving at a Punta Cana resort setting', 'Airport-arrival arrangement.']
       ]
     }
   };
