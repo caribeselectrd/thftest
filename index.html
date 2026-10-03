@@ -58,7 +58,7 @@
               <p class="service-number">01 / Land</p>
               <h3>Buggies &amp; ATV Adventure</h3>
               <p>Muddy Macao trails, Dominican coffee and cacao, a freshwater cave stop, and time at Macao Beach.</p>
-              <a class="card-link" href="index.html?service=buggies-atv#inquiry">Explore the adventure <span aria-hidden="true">→</span></a>
+              <button class="card-link card-link--button" type="button" data-open-experience="buggies">Explore the adventure <span aria-hidden="true">→</span></button>
             </div>
           </article>
           <article class="service-card service-card--half">
@@ -67,7 +67,7 @@
               <p class="service-number">02 / On the water</p>
               <h3>Hip-Hop Party Boat</h3>
               <p>A live DJ, open bar, swimming, snorkeling, and a lively sandbar stop—with Hip-Hop, R&amp;B, Dancehall, and Afrobeats onboard.</p>
-              <a class="card-link" href="index.html?service=hip-hop-party-boat#inquiry">Explore the party boat <span aria-hidden="true">→</span></a>
+              <button class="card-link card-link--button" type="button" data-open-experience="partyboat">Explore the party boat <span aria-hidden="true">→</span></button>
             </div>
           </article>
           <article class="service-card">
@@ -76,7 +76,7 @@
               <p class="service-number">03 / Private charter</p>
               <h3>Private Boats &amp; Yacht Experiences</h3>
               <p>Private boat. DJ onboard. Drinks, clear water, and sunset views.</p>
-              <a class="card-link" href="index.html?service=private-yacht#inquiry">Explore private boats <span aria-hidden="true">→</span></a>
+              <button class="card-link card-link--button" type="button" data-open-experience="private-yacht">Explore private boats <span aria-hidden="true">→</span></button>
             </div>
           </article>
           <article class="service-card">
@@ -85,7 +85,7 @@
               <p class="service-number">04 / On the water</p>
               <h3>Jet Ski Experience</h3>
               <p>Get out on the water and add some speed to your Punta Cana plans.</p>
-              <a class="card-link" href="index.html?service=jet-ski#inquiry">Plan your ride <span aria-hidden="true">→</span></a>
+              <button class="card-link card-link--button" type="button" data-open-experience="jetski">Explore Jet Skis <span aria-hidden="true">→</span></button>
             </div>
           </article>
           <article class="service-card service-card--wide">
@@ -94,7 +94,7 @@
               <p class="service-number">05 / Island day</p>
               <h3>Isla Saona Escape</h3>
               <p>Palm-lined beaches, a natural-pool stop, Dominican-style lunch, and time to enjoy Saona.</p>
-              <a class="card-link" href="index.html?service=isla-saona#inquiry">Explore Saona <span aria-hidden="true">→</span></a>
+              <button class="card-link card-link--button" type="button" data-open-experience="saona">Explore Saona <span aria-hidden="true">→</span></button>
             </div>
           </article>
         </div>
@@ -119,18 +119,18 @@
       </div>
     </section>
 
-    <section class="section section--dark homepage-nightlife" id="nightlife" style="--section-image: url('public/images/Nightlife.png');" aria-labelledby="nightlife-heading">
+    <section class="page-hero page-hero--dark page-hero--nightlife home-category-hero" id="nightlife" style="--hero-image: url('public/images/Nightlife.png');" aria-labelledby="nightlife-heading">
+      <div class="page-hero-inner"><div class="page-hero-copy">
+        <p class="eyebrow">02 / After dark</p>
+        <h2 id="nightlife-heading">Premium Nightlife in Punta Cana</h2>
+        <p>Explore the city’s top club options, VIP sections, and private-event planning for your group. Transport and private security can be requested separately.</p>
+        <div class="nightlife-actions"><a class="button" href="nightlife.html">Explore Nightlife <span aria-hidden="true">→</span></a></div>
+      </div></div>
+    </section>
+
+    <section class="section section--dark home-nightlife-details" aria-label="Nightlife venues and options">
       <div class="shell">
         <div class="nightlife-panel">
-          <div class="nightlife-panel__inner">
-            <p class="eyebrow">02 / After dark</p>
-            <h2 id="nightlife-heading">Premium Nightlife</h2>
-            <p>Access to Punta Cana’s top clubs, VIP sections, and exclusive-event options. Plan a celebration or a premium night out, with transport and private security available to request separately.</p>
-            <div class="nightlife-actions">
-              <button class="button" type="button" data-open-experience="nightlife">Explore clubs &amp; photos <span aria-hidden="true">→</span></button>
-              <a class="button button--outline" href="index.html?service=private-events#inquiry">Enquire About a Private Event <span aria-hidden="true">→</span></a>
-            </div>
-          </div>
           <div class="nightlife-venue-grid" aria-label="Featured Punta Cana nightlife venues">
             <article class="nightlife-venue">
               <button class="experience-preview" type="button" data-open-experience="venue-empire" aria-label="Open Empire Club details and photos"><img src="public/images/nightlife_Empire_Club.jpg" alt="Empire Club nightlife scene" loading="lazy"></button>
@@ -159,16 +159,13 @@
       </div>
     </section>
 
-    <section class="section homepage-transport" id="transport" style="--section-image: url('public/images/transport2.png');" aria-labelledby="transport-heading">
-      <div class="shell transport-split transport-split--home">
-        <div>
-          <p class="eyebrow">03 / Move with ease</p>
-          <h2 id="transport-heading">Private Transport</h2>
-          <p>Airport pickups, hotel transfers, and private rides for your plans in Punta Cana. Share your route and schedule to request the right arrangement.</p>
-          <ul class="pill-row" aria-label="Private transport services"><li>Airport pickups</li><li>Hotel transfers</li><li>Nights out</li><li>Custom journeys</li></ul>
-          <button class="button button--dark" type="button" data-open-experience="transport">View transport details <span aria-hidden="true">→</span></button>
-        </div>
-      </div>
+    <section class="page-hero page-hero--transport home-category-hero" id="transport" style="--hero-image: url('public/images/transport2.png');" aria-labelledby="transport-heading">
+      <div class="page-hero-inner"><div class="page-hero-copy">
+        <p class="eyebrow">03 / Move with ease</p>
+        <h2 id="transport-heading">Your Journey. Our Priority.</h2>
+        <p><strong>Punctual. Professional. Discreet.</strong> Airport pickups, hotel transfers, private rides for nights out, and custom journeys around Punta Cana.</p>
+        <div class="nightlife-actions"><a class="button" href="transport.html">Explore Private Transport <span aria-hidden="true">→</span></a></div>
+      </div></div>
     </section>
 
     <section class="section section--ivory" id="about" aria-labelledby="about-heading">
