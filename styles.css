@@ -136,17 +136,6 @@ button { cursor: pointer; }
   background-position: center;
   background-size: cover;
 }
-.home-hero::after {
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  right: 6%;
-  width: min(45vw, 600px);
-  height: 100%;
-  content: '';
-  background: linear-gradient(135deg, transparent 30%, rgba(198, 161, 91, .16));
-  clip-path: polygon(35% 0, 100% 0, 100% 100%, 0 100%);
-}
 .hero-inner {
   width: min(1240px, calc(100% - 2.5rem));
   margin: auto;
