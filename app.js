@@ -131,17 +131,20 @@
       title: 'Premium Nightlife in Punta Cana',
       lead: 'Explore top-club options, VIP sections, and private-event planning for your group.',
       copy: ['Start with the atmosphere, preferred date, group size, and music you want. THF can help you explore appropriate venue options during your stay.'],
-      list: ['Empire Club', 'Infinity Club', 'MOVIE Club', 'Infinity Stripclub', 'VIP and private-event options'],
+      list: ['Empire Lounge Nightclub', 'Infinity Bar Punta Cana Nightclub', 'Movie Disco Club (Open until Dawn)', 'Drinkpoint Outdoor NightClub', 'Infinity Stripclub', 'VIP and private-event options'],
       note: 'Reservations, access, VIP arrangements, and event options are subject to availability and venue terms.',
       service: 'club-reservations',
       gallery: [
         ['public/images/Nightlife.png', 'Nightlife scene in Punta Cana', 'Punta Cana after dark.'],
-        ['public/images/nightlife_Empire_Club.jpg', 'Empire Club nightlife scene', 'Empire Club.'],
-        ['public/images/nightlife_Empire_Club2.jpg', 'Empire Club interior', 'Empire Club after dark.'],
-        ['public/images/Nightlife_Infinity_Club.webp', 'Infinity Club nightlife scene', 'Infinity Club.'],
-        ['public/images/nightlife_Infinity_Club_menu.jpg', 'Infinity Club menu', 'Infinity Club menu.'],
-        ['public/images/nightlife_MOVIE_Club.jpg', 'MOVIE Club nightlife scene', 'MOVIE Club.'],
-        ['public/images/nightlife_MOVIE_Club2.jpg', 'MOVIE Club interior', 'MOVIE Club after dark.'],
+        ['public/images/nightlife_Empire_Club.jpg', 'Empire Lounge Nightclub nightlife scene', 'Empire Lounge Nightclub.'],
+        ['public/images/nightlife_Empire_Club2.jpg', 'Empire Lounge Nightclub interior', 'Empire Lounge Nightclub after dark.'],
+        ['public/images/nightlife_Empire_Club3.jpg', 'Empire Lounge Nightclub venue scene', 'Empire Lounge Nightclub venue scene.'],
+        ['public/images/Nightlife_Infinity_Club.webp', 'Infinity Bar Punta Cana Nightclub nightlife scene', 'Infinity Bar Punta Cana Nightclub.'],
+        ['public/images/nightlife_Infinity_Club_menu.jpg', 'Infinity Bar Punta Cana Nightclub menu', 'Infinity Bar Punta Cana Nightclub menu.'],
+        ['public/images/nightlife_MOVIE_Club.jpg', 'Movie Disco Club nightlife scene', 'Movie Disco Club (Open until Dawn).'],
+        ['public/images/nightlife_MOVIE_Club2.jpg', 'Movie Disco Club interior', 'Movie Disco Club after dark.'],
+        ['public/images/Nightlife_drinkpoint.webp', 'Drinkpoint Outdoor NightClub nightlife scene', 'Drinkpoint Outdoor NightClub.'],
+        ['public/images/nightlife_Drinkpoint_Club2.jpg', 'Drinkpoint Outdoor NightClub venue scene', 'Drinkpoint Outdoor NightClub after dark.'],
         ['public/images/Nightlife_Infinity_Stripclub.webp', 'Infinity Stripclub interior', 'Infinity Stripclub.'],
         ['public/images/Nightlife_Infinity_Stripclub2.webp', 'Infinity Stripclub nightlife scene', 'Infinity Stripclub after dark.'],
         ['public/images/Nightlife_Infinity_Stripclub3.webp', 'Infinity Stripclub stage scene', 'Infinity Stripclub venue scene.']
@@ -149,48 +152,62 @@
     },
     'venue-empire': {
       label: 'Nightlife · Venue option',
-      title: 'Empire Club',
-      lead: 'Explore Empire Club as a nightlife option for your stay.',
-      copy: ['Share your preferred date, group size, and music preferences to explore reservation or VIP-section options at Empire Club.'],
-      list: ['Club reservation request', 'VIP-section inquiry', 'Group-night planning'],
+      title: 'Empire Lounge Nightclub',
+      lead: 'Trendy newest club in Punta Cana where DJs from Miami, New York and Dominican Republic spin the best beats of Hip Hop, Reggae, Soca and more.',
+      copy: ['VIP seating with bottle service. Located only a few steps from DrinkPoint.'],
+      list: ['Hip Hop, Reggae, Soca, and more', 'VIP seating with bottle service', 'Club reservation request'],
       note: 'Reservations, access, VIP arrangements, and venue options are subject to availability and venue terms.',
       service: 'club-reservations',
       gallery: [
-        ['public/images/nightlife_Empire_Club.jpg', 'Empire Club nightlife scene', 'Empire Club.'],
-        ['public/images/nightlife_Empire_Club2.jpg', 'Empire Club interior', 'Empire Club after dark.']
+        ['public/images/nightlife_Empire_Club.jpg', 'Empire Lounge Nightclub nightlife scene', 'Empire Lounge Nightclub.'],
+        ['public/images/nightlife_Empire_Club2.jpg', 'Empire Lounge Nightclub interior', 'Empire Lounge Nightclub after dark.'],
+        ['public/images/nightlife_Empire_Club3.jpg', 'Empire Lounge Nightclub venue scene', 'Empire Lounge Nightclub venue scene.']
       ]
     },
     'venue-infinity': {
       label: 'Nightlife · Venue option',
-      title: 'Infinity Club',
-      lead: 'Explore Infinity Club as a nightlife option for your stay.',
-      copy: ['Share your preferred date, group size, and music preferences to explore reservation or VIP-section options at Infinity Club.'],
+      title: 'Infinity Bar Punta Cana Nightclub',
+      lead: 'Explore Infinity Bar Punta Cana Nightclub as a nightlife option for your stay.',
+      copy: ['Share your preferred date, group size, and music preferences to explore reservation or VIP-section options at Infinity Bar Punta Cana Nightclub.'],
       list: ['Club reservation request', 'VIP-section inquiry', 'Group-night planning'],
       note: 'Reservations, access, VIP arrangements, and venue options are subject to availability and venue terms.',
       service: 'club-reservations',
       gallery: [
-        ['public/images/Nightlife_Infinity_Club.webp', 'Infinity Club nightlife scene', 'Infinity Club.'],
-        ['public/images/nightlife_Infinity_Club_menu.jpg', 'Infinity Club menu', 'Infinity Club menu.']
+        ['public/images/Nightlife_Infinity_Club.webp', 'Infinity Bar Punta Cana Nightclub nightlife scene', 'Infinity Bar Punta Cana Nightclub.'],
+        ['public/images/nightlife_Infinity_Club_menu.jpg', 'Infinity Bar Punta Cana Nightclub menu', 'Infinity Bar Punta Cana Nightclub menu.']
       ]
     },
     'venue-movie': {
       label: 'Nightlife · Venue option',
-      title: 'MOVIE Club',
-      lead: 'Explore MOVIE Club as a nightlife option for your stay.',
-      copy: ['Share your preferred date, group size, and music preferences to explore reservation or VIP-section options at MOVIE Club.'],
+      title: 'Movie Disco Club (Open until Dawn)',
+      lead: 'Explore Movie Disco Club as a nightlife option for your stay.',
+      copy: ['Share your preferred date, group size, and music preferences to explore reservation or VIP-section options at Movie Disco Club.'],
       list: ['Club reservation request', 'VIP-section inquiry', 'Group-night planning'],
       note: 'Reservations, access, VIP arrangements, and venue options are subject to availability and venue terms.',
       service: 'club-reservations',
       gallery: [
-        ['public/images/nightlife_MOVIE_Club.jpg', 'MOVIE Club nightlife scene', 'MOVIE Club.'],
-        ['public/images/nightlife_MOVIE_Club2.jpg', 'MOVIE Club interior', 'MOVIE Club after dark.']
+        ['public/images/nightlife_MOVIE_Club.jpg', 'Movie Disco Club nightlife scene', 'Movie Disco Club (Open until Dawn).'],
+        ['public/images/nightlife_MOVIE_Club2.jpg', 'Movie Disco Club interior', 'Movie Disco Club after dark.']
+      ]
+    },
+    'venue-drinkpoint': {
+      label: 'Nightlife · Venue option',
+      title: 'Drinkpoint Outdoor NightClub',
+      lead: 'Explore Drinkpoint Outdoor NightClub as a nightlife option for your stay.',
+      copy: ['Share your preferred date, group size, and music preferences to explore available arrangements for your group.'],
+      list: ['Club reservation request', 'VIP-section inquiry', 'Group-night planning'],
+      note: 'Reservations, access, VIP arrangements, and venue options are subject to availability and venue terms.',
+      service: 'club-reservations',
+      gallery: [
+        ['public/images/Nightlife_drinkpoint.webp', 'Drinkpoint Outdoor NightClub nightlife scene', 'Drinkpoint Outdoor NightClub.'],
+        ['public/images/nightlife_Drinkpoint_Club2.jpg', 'Drinkpoint Outdoor NightClub venue scene', 'Drinkpoint Outdoor NightClub after dark.']
       ]
     },
     'venue-infinity-stripclub': {
       label: 'Nightlife · Adult venue option',
       title: 'Infinity Stripclub',
       lead: 'Explore Infinity Stripclub as a separate adult-nightlife option for your stay.',
-      copy: ['Share your preferred date and group size to explore available arrangements. This is a separate venue option from Infinity Club.'],
+      copy: ['Share your preferred date and group size to explore available arrangements. This is a separate venue option from Infinity Bar Punta Cana Nightclub.'],
       list: ['Separate adult-nightlife venue option', 'Reservation inquiry', 'Group-night planning'],
       note: 'Access and venue arrangements are subject to availability and venue terms.',
       service: 'club-reservations',

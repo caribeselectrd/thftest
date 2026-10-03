@@ -386,6 +386,7 @@ button { cursor: pointer; }
 .nightlife-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 2rem; }
 .nightlife-venue-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 1.25rem; }
 .nightlife-venue { overflow: hidden; border: 1px solid rgba(230,211,168,.3); background: rgba(8,8,8,.64); }
+.nightlife-venue--wide { grid-column: span 2; }
 .nightlife-venue .experience-preview { min-height: 260px; }
 .nightlife-venue .experience-preview img { min-height: 260px; }
 .nightlife-venue > div { padding: 1.2rem 1.25rem 1.3rem; }
@@ -537,6 +538,7 @@ button { cursor: pointer; }
   .feature-list { grid-template-columns: 1fr; }
   .offer-grid { margin-top: 2rem; }
   .nightlife-venue-grid { grid-template-columns: 1fr; margin-top: 2rem; }
+  .nightlife-venue--wide { grid-column: auto; }
   .transport-split__image { min-height: 320px; order: -1; }
   .category-rail { grid-template-columns: 1fr; }
   .category-rail a { min-height: 0; }
