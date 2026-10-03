@@ -332,6 +332,16 @@
     return details;
   }
 
+  function toggleInlineDetails(details, trigger, gallery) {
+    const willOpen = details.hidden;
+    details.hidden = !willOpen;
+    trigger.setAttribute('aria-expanded', String(willOpen));
+    trigger.innerHTML = willOpen ? 'Hide details <span aria-hidden="true">↑</span>' : 'View details <span aria-hidden="true">↓</span>';
+    const card = gallery.closest('.service-card, .experience-card, .nightlife-venue');
+    if (card) card.classList.toggle('experience-expanded', willOpen);
+    if (willOpen) details.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
   function makeGallery(trigger, key) {
     const experience = experiences[key];
     if (!experience) return;
@@ -343,7 +353,7 @@
     gallery.dataset.experience = key;
     gallery.tabIndex = 0;
     gallery.setAttribute('aria-label', experience.title + ' photo gallery');
-    gallery.innerHTML = '<button class="experience-gallery__previous" type="button" aria-label="Show previous photo">‹</button><button class="experience-gallery__image" type="button" aria-label="View photo fullscreen"><img alt=""></button><button class="experience-gallery__next" type="button" aria-label="Show next photo">›</button><p class="experience-gallery__caption"></p><p class="experience-gallery__counter"></p>';
+    gallery.innerHTML = '<button class="experience-gallery__previous" type="button" aria-label="Show previous photo">‹</button><button class="experience-gallery__image" type="button" aria-label="View photo fullscreen"><img alt=""></button><button class="experience-gallery__next" type="button" aria-label="Show next photo">›</button><button class="experience-gallery__close" type="button" aria-label="Exit fullscreen">×</button><p class="experience-gallery__caption"></p><p class="experience-gallery__counter"></p>';
     trigger.replaceWith(gallery);
     const image = gallery.querySelector('img');
     const caption = gallery.querySelector('.experience-gallery__caption');
@@ -351,6 +361,7 @@
     const previous = gallery.querySelector('.experience-gallery__previous');
     const next = gallery.querySelector('.experience-gallery__next');
     const imageButton = gallery.querySelector('.experience-gallery__image');
+    const close = gallery.querySelector('.experience-gallery__close');
     let imageIndex = 0;
 
     function render() {
@@ -376,6 +387,9 @@
     imageButton.addEventListener('click', function () {
       if (gallery.requestFullscreen) gallery.requestFullscreen();
     });
+    close.addEventListener('click', function () {
+      if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen();
+    });
     render();
     galleriesByExperience[key] = galleriesByExperience[key] || [];
     galleriesByExperience[key].push(gallery);
@@ -399,9 +413,7 @@
     trigger.setAttribute('aria-expanded', 'false');
     trigger.addEventListener('click', function (event) {
       event.preventDefault();
-      details.hidden = !details.hidden;
-      trigger.setAttribute('aria-expanded', String(!details.hidden));
-      if (!details.hidden) details.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      toggleInlineDetails(details, trigger, gallery);
     });
     const existingPlan = host.querySelector('a[href*="#inquiry"]');
     if (existingPlan) {
@@ -430,9 +442,7 @@
     detailsButton.innerHTML = 'View details <span aria-hidden="true">↓</span>';
     detailsButton.setAttribute('aria-expanded', 'false');
     detailsButton.addEventListener('click', function () {
-      details.hidden = !details.hidden;
-      detailsButton.setAttribute('aria-expanded', String(!details.hidden));
-      if (!details.hidden) details.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      toggleInlineDetails(details, detailsButton, gallery);
     });
     const plan = document.createElement('a');
     plan.className = 'button button--outline inline-plan-link';
