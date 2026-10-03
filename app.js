@@ -406,6 +406,7 @@
     if (!gallery) return;
     const host = detailsHost(gallery);
     const details = buildInlineDetails(experience, host);
+    if (trigger.classList.contains('card-link--button')) trigger.className = 'button button--dark';
     trigger.classList.add('inline-details-trigger');
     trigger.innerHTML = 'View details <span aria-hidden="true">↓</span>';
     trigger.setAttribute('aria-expanded', 'false');
@@ -414,16 +415,7 @@
       toggleInlineDetails(details, trigger, gallery);
     });
     const existingPlan = host.querySelector('a[href*="#inquiry"]');
-    if (existingPlan) {
-      existingPlan.classList.add('inline-plan-link');
-      existingPlan.textContent = experience.service === 'private-security' ? 'Enquire now' : 'Plan now';
-    } else {
-      const plan = document.createElement('a');
-      plan.className = 'button button--dark inline-plan-link';
-      plan.href = 'index.html?service=' + encodeURIComponent(experience.service) + '#inquiry';
-      plan.textContent = experience.service === 'private-security' ? 'Enquire now' : 'Plan now';
-      trigger.insertAdjacentElement('afterend', plan);
-    }
+    if (existingPlan) existingPlan.remove();
   });
 
   document.querySelectorAll('.experience-gallery').forEach(function (gallery) {
@@ -442,11 +434,7 @@
     detailsButton.addEventListener('click', function () {
       toggleInlineDetails(details, detailsButton, gallery);
     });
-    const plan = document.createElement('a');
-    plan.className = 'button button--outline inline-plan-link';
-    plan.href = 'index.html?service=' + encodeURIComponent(experience.service) + '#inquiry';
-    plan.textContent = experience.service === 'private-security' ? 'Enquire now' : 'Plan now';
-    actions.append(detailsButton, plan);
+    actions.append(detailsButton);
     host.appendChild(actions);
   });
 
