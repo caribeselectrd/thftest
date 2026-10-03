@@ -94,28 +94,28 @@
     jetski: {
       label: 'Tours & Excursions · On the water',
       title: 'Jet Ski Experience',
-      lead: 'Get out on the water and add some speed to your Punta Cana plans.',
+      lead: 'Get out on the water in Boca Chica and add some speed to your day.',
       copy: [
-        'Choose a Jet Ski experience when you want a more active water plan alongside beach days, excursions, or a night out.',
+        'Choose a Jet Ski experience when you want an active day on the water in Boca Chica.',
         'Share your date, group size, and preferences so THF can help you explore a suitable arrangement.'
       ],
-      list: ['An active water experience', 'Suitable alongside other Punta Cana plans', 'Requested around your preferred date and group'],
+      list: ['An active Boca Chica water experience', 'Requested around your preferred date and group'],
       note: 'Selected duration, water area, availability, and operating requirements are confirmed with your quote. Water activities are subject to conditions.',
       service: 'jet-ski',
       gallery: [
         ['public/images/jetski.jpg', 'Two riders on a Jet Ski in clear water', 'Get out on the water and add some speed.'],
-        ['public/images/jetski1.avif', 'Jet Ski experience in Punta Cana', 'Jet Ski experience in Punta Cana.']
+        ['public/images/jetski1.avif', 'Jet Ski experience in Boca Chica', 'Jet Ski experience in Boca Chica.']
       ]
     },
     saona: {
       label: 'Tours & Excursions · Island day',
       title: 'Isla Saona Escape',
-      lead: 'Palm-lined beaches, a natural-pool stop, Dominican-style lunch, and time to enjoy Saona.',
+      lead: 'A full-day Saona Island escape featuring speedboat rides, a natural pool stop with sea stars, island downtime, an open bar, lunch, and a music-filled catamaran return.',
       copy: [
-        'Make room for a full day around Isla Saona, with time to take in the beach, the water, and the pace of the island.',
-        'It is a strong fit for groups who want their day to feel more relaxed after an active excursion or night out.'
+        'Leave the logistics behind and head straight to the coast. We take care of hotel pickups across Bávaro, Punta Cana, Fruiza, Macao, and Ubero Alto, getting you straight to the water. Kick off the trip on a speedboat out to a shallow natural pool to see sea stars with a drink in hand. From there, land on Saona Island for open beach time, an included lunch, and an open bar. Wrap up the day cruising back on a catamaran with cold drinks and music keeping the vibe alive all the way back.'
       ],
-      list: ['Palm-lined beaches', 'Natural-pool stop', 'Dominican-style lunch', 'Time to enjoy the island'],
+      includedTitle: 'What’s Included',
+      list: ['Round-trip transportation', 'Snacks', 'Buffet lunch', 'Alcoholic beverages'],
       note: 'Selected route, pickup timing, and day-of arrangements are confirmed with your quote. Water stops are subject to conditions.',
       service: 'isla-saona',
       gallery: [

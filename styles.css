@@ -470,6 +470,7 @@ button { cursor: pointer; }
 .detail-copy h2 { margin: 0; font-size: clamp(2.4rem, 4.8vw, 4.25rem); font-weight: 400; letter-spacing: -.05em; line-height: .98; }
 .detail-copy h3 { margin: 2rem 0 .7rem; color: var(--deep-gold); font-size: 1.6rem; font-weight: 400; }
 .detail-copy p { max-width: 700px; margin: 0 0 1rem; }
+.detail-copy h2 + p { margin-top: 1.25rem; }
 .choice-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; margin: 1.1rem 0 1.45rem; }
 .choice-list > div { padding: 1rem; border: 1px solid rgba(128,96,37,.26); background: rgba(255,253,250,.6); }
 .choice-list h4 { margin: 0; color: var(--deep-gold); font-size: .73rem; letter-spacing: .09em; text-transform: uppercase; }
