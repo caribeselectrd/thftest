@@ -40,6 +40,7 @@
       list: ['Round-trip hotel transportation to the ranch', 'Organic coffee, cacao, and mamajuana tasting', 'Taíno freshwater cave swim', 'Time to relax and take photos at Macao Beach'],
       note: 'Food and drinks at Macao Beach are not included. Final timing, vehicle selection, and availability are confirmed with your quote.',
       service: 'buggies-atv',
+      bookingTimes: ['8:30 AM', '11:30 AM', '2:30 PM'],
       gallery: [
         ['public/images/atv.jpeg', 'ATV riders on an off-road route in Punta Cana', 'ATV action on the Macao route.'],
         ['public/images/atv1.jpeg', 'Off-road buggy moving through a muddy trail', 'Buggy action through the trail.'],
@@ -66,6 +67,7 @@
       list: ['Live DJ onboard', 'Open bar', 'Swimming and snorkeling', 'Lively sandbar stop'],
       note: 'Adults only. Availability, route, and onboard arrangements are confirmed with your quote.',
       service: 'hip-hop-party-boat',
+      bookingTimes: ['2:30 PM'],
       gallery: [
         ['public/images/partyboat1.jpg', 'Guests gathered on a party boat in Punta Cana', 'Music and a social day on the water.'],
         ['public/images/partyboat2.jpg', 'Party boat guests enjoying their time onboard', 'Bring your group together onboard.'],
@@ -286,6 +288,46 @@
     note.className = 'inline-experience-details__note';
     note.textContent = experience.note;
     details.appendChild(note);
+    const quickPlan = document.createElement('div');
+    quickPlan.className = 'inline-quick-plan';
+    const quickPlanHeading = document.createElement('h5');
+    quickPlanHeading.textContent = 'Ready to plan this experience?';
+    quickPlan.appendChild(quickPlanHeading);
+    const quickPlanFields = document.createElement('div');
+    quickPlanFields.className = 'inline-quick-plan__fields';
+    const guestLabel = document.createElement('label');
+    guestLabel.textContent = 'How many people?';
+    const guests = document.createElement('select');
+    guests.setAttribute('aria-label', 'How many people are in your group?');
+    guests.innerHTML = '<option value="">Select group size</option><option value="1">1 person</option><option value="2">2 people</option><option value="3">3 people</option><option value="4">4 people</option><option value="5">5 people</option><option value="6">6 people</option><option value="7">7 people</option><option value="8">8 people</option><option value="9">9 people</option><option value="10">10 people</option><option value="11+">11+ people</option>';
+    guestLabel.appendChild(guests);
+    quickPlanFields.appendChild(guestLabel);
+    let timing = null;
+    if (experience.bookingTimes) {
+      const timeLabel = document.createElement('label');
+      timeLabel.textContent = 'Available time';
+      timing = document.createElement('select');
+      timing.setAttribute('aria-label', 'Select an available time');
+      timing.innerHTML = '<option value="">Select a time</option>' + experience.bookingTimes.map(function (time) { return '<option value="' + time + '">' + time + '</option>'; }).join('');
+      timeLabel.appendChild(timing);
+      quickPlanFields.appendChild(timeLabel);
+    }
+    quickPlan.appendChild(quickPlanFields);
+    const quickPlanButton = document.createElement('a');
+    quickPlanButton.className = 'button button--dark inline-quick-plan__button';
+    quickPlanButton.textContent = experience.service === 'private-security' ? 'Enquire now' : 'Plan now';
+    function updateQuickPlanLink() {
+      const params = new URLSearchParams();
+      params.set('service', experience.service);
+      if (guests.value) params.set('guests', guests.value);
+      if (timing && timing.value) params.set('time', timing.value);
+      quickPlanButton.href = 'index.html?' + params.toString() + '#inquiry';
+    }
+    guests.addEventListener('change', updateQuickPlanLink);
+    if (timing) timing.addEventListener('change', updateQuickPlanLink);
+    updateQuickPlanLink();
+    quickPlan.appendChild(quickPlanButton);
+    details.appendChild(quickPlan);
     host.appendChild(details);
     return details;
   }
@@ -332,7 +374,7 @@
       if (event.key === 'ArrowRight') { event.preventDefault(); move(1); }
     });
     imageButton.addEventListener('click', function () {
-      if (window.matchMedia('(min-width: 821px)').matches && gallery.requestFullscreen) gallery.requestFullscreen();
+      if (gallery.requestFullscreen) gallery.requestFullscreen();
     });
     render();
     galleriesByExperience[key] = galleriesByExperience[key] || [];
@@ -441,10 +483,17 @@
   }
 
   if (service) {
-    const requestedService = new URLSearchParams(window.location.search).get('service');
+    const requestParams = new URLSearchParams(window.location.search);
+    const requestedService = requestParams.get('service');
     if (requestedService && service.querySelector('option[value="' + requestedService + '"]')) {
       service.value = requestedService;
     }
+    const requestedGuests = requestParams.get('guests');
+    const groupSize = document.getElementById('group-size');
+    if (requestedGuests && groupSize) groupSize.value = requestedGuests.replace('+', '');
+    const requestedTime = requestParams.get('time');
+    const inquiryDetails = document.getElementById('details');
+    if (requestedTime && inquiryDetails && !inquiryDetails.value) inquiryDetails.value = 'Preferred time: ' + requestedTime;
     toggleContextFields();
     service.addEventListener('change', toggleContextFields);
   }
