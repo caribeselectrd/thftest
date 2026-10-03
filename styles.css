@@ -576,6 +576,7 @@ button { cursor: pointer; }
   .experience-preview, .experience-preview img { min-height: 260px; }
   .experience-preview--tall, .experience-preview--tall img { min-height: 300px; }
   .experience-gallery, .experience-gallery--tall, .experience-gallery--feature, .experience-gallery--transport, .nightlife-venue .experience-gallery { height: min(66svh, 540px); min-height: 0; }
+  .experience-gallery__image img { object-fit: contain; }
   .experience-gallery__previous, .experience-gallery__next { width: 34px; height: 38px; }
   .private-feature__visual { min-height: 350px; }
   .feature-list { grid-template-columns: 1fr; }
