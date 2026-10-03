@@ -26,13 +26,19 @@
     buggies: {
       label: 'Tours & Excursions · Land',
       title: 'Buggies & ATV Adventure',
-      lead: 'Muddy Macao trails, Dominican coffee and cacao, a freshwater cave stop, and time at Macao Beach.',
+      lead: 'Ride through Macao’s muddy trails by ATV or buggy, taste organic Dominican coffee, cacao, and mamajuana, swim inside a natural underground Taíno freshwater cave, and finish with time to relax and take photos at beautiful Macao Beach.',
       copy: [
-        'Take the off-road route through Macao, with stops that show a different side of the Dominican Republic before you finish at the beach.',
-        'Choose the ride that suits your group, then confirm the selected vehicle and available details with your quote.'
+        'Get ready for approximately 3 hours of adventure, culture, and unforgettable scenery in the Dominican countryside.',
+        'Your experience begins with round-trip transportation from your hotel to the ranch, where you’ll get ready for the adventure and head out on your selected ATV or buggy.',
+        'Start the adventure by riding through muddy off-road trails and tropical countryside before making your first stop at a traditional Dominican ranch.',
+        'At the ranch, you’ll have the opportunity to taste some of the island’s most famous local products, including organic Dominican coffee, cacao, and mamajuana, while getting a glimpse of local culture and traditions.',
+        'Then it’s back on the ATV or buggy for more off-road riding through the Macao countryside until you reach one of the highlights of the tour: a natural underground Taíno freshwater cave, or cenote.',
+        'Take a break from the ride and cool off with a refreshing swim in the cave’s clear natural waters, a unique experience you won’t find at a typical resort.',
+        'After your cave stop, jump back on your ATV or buggy and continue toward Macao Beach, one of Punta Cana’s most beautiful and famous beaches. Here you’ll have time to relax by the ocean, take photos, enjoy the scenery, or purchase a drink or something to eat before heading back. Food and drinks at the beach are not included.',
+        'With hotel transportation, Dominican culture, off-road adventure, a cave swim, and beach time all in one excursion, this is the perfect way to experience a more adventurous and authentic side of Punta Cana.'
       ],
-      list: ['Buggy and ATV choices stay distinct', 'Dominican coffee and cacao stop', 'Freshwater cave stop', 'Time at Macao Beach'],
-      note: 'Age and driver requirements apply. Stay on designated routes and follow local guidance around caves, beaches, wildlife, and protected areas.',
+      list: ['Round-trip hotel transportation to the ranch', 'Organic coffee, cacao, and mamajuana tasting', 'Taíno freshwater cave swim', 'Time to relax and take photos at Macao Beach'],
+      note: 'Food and drinks at Macao Beach are not included. Final timing, vehicle selection, and availability are confirmed with your quote.',
       service: 'buggies-atv',
       gallery: [
         ['public/images/atv.jpeg', 'ATV riders on an off-road route in Punta Cana', 'ATV action on the Macao route.'],
