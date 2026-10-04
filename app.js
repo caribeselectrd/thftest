@@ -303,7 +303,7 @@
       tray.setAttribute('aria-label', 'Your selected experiences');
       document.body.appendChild(tray);
     }
-    tray.innerHTML = '<a class="trip-tray__link" href="trip.html"><span>My Trip</span><strong>' + trip.length + '</strong><span>View trip <span aria-hidden="true">→</span></span></a>';
+    tray.innerHTML = '<a class="trip-tray__link" href="trip.html"><span>View My Trip <span aria-hidden="true">→</span></span><strong>' + trip.length + '</strong></a>';
   }
 
   function updateTripButtons() {
