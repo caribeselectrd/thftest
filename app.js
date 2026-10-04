@@ -373,7 +373,11 @@
     if (parent.classList.contains('experience-card__actions') || parent.classList.contains('inline-experience-actions')) {
       parent.appendChild(addButton);
     } else if (parent.tagName === 'P') {
-      trigger.insertAdjacentElement('afterend', addButton);
+      const actions = document.createElement('div');
+      actions.className = 'inline-experience-actions';
+      actions.style.marginTop = parent.style.marginTop || '';
+      parent.replaceWith(actions);
+      actions.append(trigger, addButton);
     } else {
       const actions = document.createElement('div');
       actions.className = 'inline-experience-actions';
