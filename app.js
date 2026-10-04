@@ -135,10 +135,10 @@
       copy: [
         'On November 14, THF takes the party offshore. Special guest DJ Griggs is coming from Houston to Punta Cana to bring the soundtrack to an exclusive celebration across two private yachts.',
         'Bring your crew, step aboard, and settle into a day of ocean views, music, and good company. Expect Hip-Hop, R&B, Dancehall, and Afrobeats, with an animation dance team keeping the energy moving and cold drinks ready between tracks.',
-        'Your day includes the essentials of our regular party boat experience: round-trip transportation, snacks and fresh fruit, alcoholic beverages, bottled water, soda, and snorkeling gear. Two private yachts give this THF event its own setting—a shared celebration out on the Punta Cana coast.'
+        'Your day includes the essentials of our regular party boat experience: round-trip transportation, snacks and fresh fruit, alcoholic beverages, bottled water, and soda. Two private yachts give this THF event its own setting—a shared celebration out on the Punta Cana coast.'
       ],
       includedTitle: 'What’s Included',
-      list: ['Round-trip transportation', 'Snacks and fresh fruits', 'Alcoholic beverages', 'Bottled water', 'Soda/Pop', 'Snorkeling gear', 'Live Hip-Hop, R&B, Dancehall, and Afrobeats DJ set with special guest DJ Griggs', 'Animation dance team'],
+      list: ['Round-trip transportation', 'Snacks and fresh fruits', 'Alcoholic beverages', 'Bottled water', 'Soda/Pop', 'Live Hip-Hop, R&B, Dancehall, and Afrobeats DJ set with special guest DJ Griggs', 'Animation dance team'],
       note: 'Adults only. November 14, 2026. Departure time, pickup arrangements, and availability are confirmed with your inquiry.',
       service: 'thf-boat-party',
       bookingDate: '2026-11-14',
@@ -387,6 +387,8 @@
     const imageButton = gallery.querySelector('.experience-gallery__image');
     const close = gallery.querySelector('.experience-gallery__close');
     let imageIndex = 0;
+    let touchStartX = null;
+    let didSwipe = false;
 
     function render() {
       const item = experience.gallery[imageIndex];
@@ -408,7 +410,21 @@
       if (event.key === 'ArrowLeft') { event.preventDefault(); move(-1); }
       if (event.key === 'ArrowRight') { event.preventDefault(); move(1); }
     });
+    gallery.addEventListener('touchstart', function (event) {
+      if (event.target.closest('.experience-gallery__previous, .experience-gallery__next, .experience-gallery__close')) return;
+      touchStartX = event.changedTouches[0].clientX;
+      didSwipe = false;
+    }, { passive: true });
+    gallery.addEventListener('touchend', function (event) {
+      if (touchStartX === null) return;
+      const distance = event.changedTouches[0].clientX - touchStartX;
+      touchStartX = null;
+      if (Math.abs(distance) < 40) return;
+      didSwipe = true;
+      move(distance < 0 ? 1 : -1);
+    }, { passive: true });
     imageButton.addEventListener('click', function () {
+      if (didSwipe) { didSwipe = false; return; }
       if (gallery.requestFullscreen) gallery.requestFullscreen();
     });
     close.addEventListener('click', function () {

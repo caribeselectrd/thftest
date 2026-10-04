@@ -271,7 +271,7 @@ button { cursor: pointer; }
 .experience-preview:hover img, .experience-preview:focus-visible img { transform: scale(1.025); }
 .experience-preview:hover::after, .experience-preview:focus-visible::after { opacity: 1; transform: translateY(0); }
 .experience-preview--tall, .experience-preview--tall img { min-height: 340px; }
-.experience-gallery { position: relative; display: grid; height: 300px; min-height: 0; overflow: hidden; place-items: center; background: transparent; }
+.experience-gallery { position: relative; display: grid; height: 300px; min-height: 0; overflow: hidden; place-items: center; background: transparent; touch-action: pan-y; }
 .experience-gallery--tall { height: 340px; }
 .experience-gallery--feature { height: 520px; }
 .experience-gallery--transport { height: 410px; background: #ded9d0; }
