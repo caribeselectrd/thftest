@@ -975,6 +975,37 @@
     });
   });
 
+  document.querySelectorAll('[data-event-countdown]').forEach(function (countdown) {
+    const start = new Date(countdown.dataset.eventStart).getTime();
+    const days = countdown.querySelector('[data-countdown-days]');
+    const hours = countdown.querySelector('[data-countdown-hours]');
+    const minutes = countdown.querySelector('[data-countdown-minutes]');
+    const seconds = countdown.querySelector('[data-countdown-seconds]');
+    const status = countdown.querySelector('[data-countdown-status]');
+    const pad = function (value) { return String(value).padStart(2, '0'); };
+    let timer;
+    function updateCountdown() {
+      const remaining = start - Date.now();
+      if (remaining <= 0) {
+        days.textContent = '00';
+        hours.textContent = '00';
+        minutes.textContent = '00';
+        seconds.textContent = '00';
+        if (status) status.textContent = 'The THF Boat Party is underway.';
+        if (timer) window.clearInterval(timer);
+        return;
+      }
+      const totalSeconds = Math.floor(remaining / 1000);
+      const totalDays = Math.floor(totalSeconds / 86400);
+      days.textContent = pad(totalDays);
+      hours.textContent = pad(Math.floor(totalSeconds % 86400 / 3600));
+      minutes.textContent = pad(Math.floor(totalSeconds % 3600 / 60));
+      seconds.textContent = pad(totalSeconds % 60);
+    }
+    updateCountdown();
+    if (start > Date.now()) timer = window.setInterval(updateCountdown, 1000);
+  });
+
   // Keep existing shared service links useful after consolidating the planning flow.
   if (document.querySelector('.trip-planning-invitation')) {
     const params = new URLSearchParams(window.location.search);
