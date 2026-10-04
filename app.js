@@ -243,7 +243,7 @@
       title: 'Private Security',
       lead: 'Request discreet security support for your evening, event, or private transport plan.',
       copy: [
-        'Private Security is available to inquire about under Nightlife and alongside Private Transport. It is arranged separately and is not included with a transfer.',
+        'Private Security is available to inquire about under Nightlife and alongside Transport. It is arranged separately and is not included with a transfer.',
         'Start with general plans only. Sensitive routes or protection details are not required for an initial inquiry.'
       ],
       list: ['Evening or event support', 'Available to request alongside private transport', 'Discreet, separately confirmed arrangements'],
@@ -254,8 +254,8 @@
       ]
     },
     transport: {
-      label: 'Private Transport · Punta Cana',
-      title: 'Private Transport',
+      label: 'Transport · Punta Cana',
+      title: 'Transport',
       lead: 'Airport pickups, hotel transfers, private rides for nights out, and custom journeys around Punta Cana.',
       copy: ['Share your pickup, destination, date, and group size to request an arrangement that fits your plans. Private security can be explored separately when it is relevant to your evening or event.'],
       list: ['Airport pickups', 'Hotel transfers', 'Private rides for nights out', 'Custom journeys'],
@@ -268,6 +268,104 @@
   };
 
   const galleriesByExperience = {};
+  const directBookingKeys = ['buggies', 'partyboat', 'saona', 'thf-boat-party'];
+  // Connect a provider-backed shared cart here, not separate product checkout links.
+  // The server must validate all product IDs, availability and prices before payment.
+  ['airport-pickup', 'hotel-transfer', 'night-out-ride', 'custom-journey'].forEach(function (key, index) {
+    experiences[key] = Object.assign({}, experiences.transport, { title: ['Airport Pickup', 'Hotel Transfer', 'Night-out Transport', 'Custom Journey'][index], service: key });
+  });
+  const tripStorageKey = 'thf-trip-builder-v1';
+
+  function readTrip() {
+    try {
+      const saved = JSON.parse(window.localStorage.getItem(tripStorageKey) || '[]');
+      return Array.isArray(saved) ? saved.filter(function (item) { return item && experiences[item.key]; }) : [];
+    } catch (error) {
+      return [];
+    }
+  }
+
+  function saveTrip(items) {
+    try { window.localStorage.setItem(tripStorageKey, JSON.stringify(items)); } catch (error) { /* Local storage may be unavailable. */ }
+  }
+
+  function renderTripTray() {
+    const trip = readTrip();
+    let tray = document.getElementById('thf-trip-tray');
+    if (!trip.length || document.querySelector('[data-trip-summary]')) {
+      if (tray) tray.remove();
+      return;
+    }
+    if (!tray) {
+      tray = document.createElement('aside');
+      tray.id = 'thf-trip-tray';
+      tray.className = 'trip-tray';
+      tray.setAttribute('aria-label', 'Your selected experiences');
+      document.body.appendChild(tray);
+    }
+    tray.innerHTML = '<a class="trip-tray__link" href="trip.html"><span>My Trip</span><strong>' + trip.length + '</strong><span>View trip <span aria-hidden="true">→</span></span></a>';
+  }
+
+  function updateTripButtons() {
+    const trip = readTrip();
+    document.querySelectorAll('[data-trip-experience]').forEach(function (button) {
+      const added = trip.some(function (item) { return item.key === button.dataset.tripExperience; });
+      button.classList.toggle('is-added', added);
+      button.textContent = added ? 'Added to My Trip ✓' : 'Add to My Trip';
+      button.setAttribute('aria-pressed', String(added));
+    });
+    document.querySelectorAll('[data-trip-remove]').forEach(function (button) {
+      button.hidden = !trip.some(function (item) { return item.key === button.dataset.tripRemove; });
+    });
+  }
+
+  function removeFromTrip(key) {
+    saveTrip(readTrip().filter(function (item) { return item.key !== key; }));
+    renderTripTray();
+    updateTripButtons();
+    renderTripPage();
+  }
+
+  function addToTrip(key, options) {
+    const trip = readTrip();
+    const existing = trip.find(function (item) { return item.key === key; });
+    if (existing) {
+      Object.keys(options || {}).forEach(function (name) { if (options[name]) existing[name] = options[name]; });
+    } else {
+      trip.push(Object.assign({ key: key }, options || {}));
+    }
+    saveTrip(trip);
+    renderTripTray();
+    updateTripButtons();
+  }
+
+  function createTripButton(key, optionsGetter) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'button trip-add-button';
+    button.dataset.tripExperience = key;
+    button.setAttribute('aria-pressed', 'false');
+    button.addEventListener('click', function () {
+      addToTrip(key, optionsGetter ? optionsGetter() : {});
+    });
+    return button;
+  }
+
+  function addTripAction(trigger, key) {
+    const addButton = createTripButton(key);
+    const parent = trigger.parentElement;
+    if (parent.classList.contains('experience-card__actions') || parent.classList.contains('inline-experience-actions')) {
+      parent.appendChild(addButton);
+    } else if (parent.tagName === 'P') {
+      trigger.insertAdjacentElement('afterend', addButton);
+    } else {
+      const actions = document.createElement('div');
+      actions.className = 'inline-experience-actions';
+      trigger.insertAdjacentElement('beforebegin', actions);
+      actions.append(trigger, addButton);
+    }
+    return addButton;
+  }
 
   function detailsHost(gallery) {
     const card = gallery.closest('.service-card, .experience-card, .nightlife-venue');
@@ -277,6 +375,10 @@
     const feature = gallery.closest('.private-feature');
     if (feature) return feature.querySelector('.private-feature__content') || feature;
     return gallery.parentElement;
+  }
+
+  function findExperienceKey(experience) {
+    return Object.keys(experiences).find(function (key) { return experiences[key] === experience; });
   }
 
   function buildInlineDetails(experience, host) {
@@ -314,7 +416,7 @@
     const quickPlan = document.createElement('div');
     quickPlan.className = 'inline-quick-plan';
     const quickPlanHeading = document.createElement('h5');
-    quickPlanHeading.textContent = 'Ready to plan this experience?';
+    quickPlanHeading.textContent = 'Add this experience to your trip';
     quickPlan.appendChild(quickPlanHeading);
     const quickPlanFields = document.createElement('div');
     quickPlanFields.className = 'inline-quick-plan__fields';
@@ -336,21 +438,22 @@
       quickPlanFields.appendChild(timeLabel);
     }
     quickPlan.appendChild(quickPlanFields);
-    const quickPlanButton = document.createElement('a');
-    quickPlanButton.className = 'button button--dark inline-quick-plan__button';
-    quickPlanButton.textContent = 'Plan now';
-    function updateQuickPlanLink() {
-      const params = new URLSearchParams();
-      params.set('service', experience.service);
-      if (experience.bookingDate) params.set('date', experience.bookingDate);
-      if (guests.value) params.set('guests', guests.value);
-      if (timing && timing.value) params.set('time', timing.value);
-      quickPlanButton.href = 'index.html?' + params.toString() + '#inquiry';
-    }
-    guests.addEventListener('change', updateQuickPlanLink);
-    if (timing) timing.addEventListener('change', updateQuickPlanLink);
-    updateQuickPlanLink();
+    const quickPlanButton = createTripButton(findExperienceKey(experience), function () {
+      return {
+        date: experience.bookingDate || '',
+        guests: guests.value || '',
+        timing: timing ? timing.value : ''
+      };
+    });
+    quickPlanButton.classList.add('button--dark', 'inline-quick-plan__button');
     quickPlan.appendChild(quickPlanButton);
+    const removeButton = document.createElement('button');
+    removeButton.type = 'button';
+    removeButton.className = 'trip-summary-card__remove';
+    removeButton.dataset.tripRemove = findExperienceKey(experience);
+    removeButton.textContent = 'Remove from My Trip';
+    removeButton.addEventListener('click', function () { removeFromTrip(removeButton.dataset.tripRemove); });
+    quickPlan.appendChild(removeButton);
     details.appendChild(quickPlan);
     host.appendChild(details);
     return details;
@@ -458,6 +561,7 @@
     });
     const existingPlan = Array.from(host.querySelectorAll('a[href*="#inquiry"]')).find(function (link) { return !link.closest('.inline-experience-details'); });
     if (existingPlan) existingPlan.remove();
+    addTripAction(trigger, key);
   });
 
   document.querySelectorAll('.experience-gallery').forEach(function (gallery) {
@@ -476,9 +580,322 @@
     detailsButton.addEventListener('click', function () {
       toggleInlineDetails(details, detailsButton, gallery);
     });
-    actions.append(detailsButton);
+    actions.append(detailsButton, createTripButton(key));
     host.appendChild(actions);
   });
+
+  renderTripTray();
+  updateTripButtons();
+
+  function updateInquirySummary() {
+    const list = document.querySelector('[data-trip-inquiry-summary]');
+    if (!list) return;
+    list.replaceChildren();
+    readTrip().filter(function (item) { return directBookingKeys.indexOf(item.key) === -1; }).forEach(function (item) {
+      const row = document.createElement('li');
+      const title = document.createElement('strong');
+      title.textContent = experiences[item.key].title;
+      const info = document.createElement('span');
+      const date = item.date ? new Date(item.date + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Date not selected';
+      info.textContent = date + ' · ' + (item.guests ? item.guests + ' people' : 'Group size not selected') + (item.timing ? ' · Preferred time: ' + item.timing : '');
+      row.append(title, info);
+      if (item.notes) {
+        const notes = document.createElement('span');
+        notes.className = 'trip-inquiry-summary__notes';
+        notes.textContent = 'Notes: ' + item.notes;
+        row.appendChild(notes);
+      }
+      list.appendChild(row);
+    });
+  }
+
+  function renderTripPage() {
+    const summary = document.querySelector('[data-trip-summary]');
+    if (!summary) return;
+    const empty = document.querySelector('[data-trip-empty]');
+    const requestForm = document.querySelector('[data-trip-request-form]');
+    const trip = readTrip();
+    const onlineItems = trip.filter(function (item) { return directBookingKeys.indexOf(item.key) !== -1; });
+    const inquiryItems = trip.filter(function (item) { return directBookingKeys.indexOf(item.key) === -1; });
+    const mixedNote = document.querySelector('[data-trip-mixed-note]');
+    if (mixedNote) mixedNote.hidden = !onlineItems.length || !inquiryItems.length;
+    summary.replaceChildren();
+    updateInquirySummary();
+    if (!trip.length) {
+      if (empty) empty.hidden = false;
+      if (requestForm) requestForm.hidden = true;
+      const requestSection = document.querySelector('[data-trip-request-section]');
+      if (requestSection) requestSection.hidden = true;
+      return;
+    }
+    if (empty) empty.hidden = true;
+    if (requestForm) requestForm.hidden = false;
+    const groups = {};
+    function makeGroup(key, title, description, count) {
+      if (!count) return;
+      const group = document.createElement('section');
+      group.className = 'trip-group trip-group--' + key;
+      group.setAttribute('aria-labelledby', 'trip-group-' + key);
+      const heading = document.createElement('h2');
+      heading.id = 'trip-group-' + key;
+      heading.textContent = title + ' · ' + count;
+      const text = document.createElement('p');
+      text.className = 'trip-group__intro';
+      text.textContent = description;
+      const cards = document.createElement('div');
+      cards.className = 'trip-group__cards';
+      group.append(heading, text, cards);
+      summary.appendChild(group);
+      groups[key] = { section: group, cards: cards };
+    }
+    makeGroup('online', 'Book online', 'Choose a date, time and group size for each activity. Complete all online activities together in one checkout when online booking is connected.', onlineItems.length);
+    makeGroup('inquiry', 'Request arrangements', 'Preferred dates and club times are requests, not confirmed reservations. THF will confirm availability and pricing. No payment now.', inquiryItems.length);
+    onlineItems.concat(inquiryItems).forEach(function (entry) {
+      const experience = experiences[entry.key];
+      const directBooking = directBookingKeys.indexOf(entry.key) !== -1;
+      const formId = directBooking ? 'trip-checkout-form' : 'trip-request-form';
+      const card = document.createElement('article');
+      card.className = 'trip-summary-card';
+      const bookingLabel = document.createElement('p');
+      bookingLabel.className = 'trip-summary-card__date';
+      bookingLabel.textContent = directBooking ? 'Online activity · Checkout not connected yet' : 'Inquiry only · No payment now';
+      const overview = document.createElement('div');
+      overview.className = 'trip-card-overview';
+      if (experience.gallery && experience.gallery.length) {
+        const image = document.createElement('img');
+        image.className = 'trip-card-photo';
+        image.src = experience.gallery[0][0];
+        image.alt = experience.gallery[0][1];
+        image.loading = 'lazy';
+        overview.appendChild(image);
+      }
+      const cardCopy = document.createElement('div');
+      cardCopy.appendChild(bookingLabel);
+      const heading = document.createElement('h3');
+      heading.className = 'trip-card-title';
+      heading.textContent = experience.title;
+      cardCopy.appendChild(heading);
+      const lead = document.createElement('p');
+      lead.className = 'trip-summary-card__lead';
+      const compactSummaries = {
+        buggies: 'Macao off-road trails, Dominican tastings, a Taíno cave swim and beach time. Approximately 3 hours; hotel transportation included.',
+        partyboat: 'Adults-only catamaran party with a live DJ, drinks, snacks and a natural-pool link-up. Round-trip transportation included.',
+        'thf-boat-party': 'November 14: two private yachts with special guest DJ Griggs from Houston, drinks, snacks and THF party energy.',
+        saona: 'A full-day Saona Island escape with speedboat rides, a natural pool stop, beach time, lunch, an open bar and a catamaran return.'
+      };
+      lead.textContent = compactSummaries[entry.key] || experience.lead;
+      cardCopy.appendChild(lead);
+      overview.appendChild(cardCopy);
+      card.appendChild(overview);
+      const details = document.createElement('details');
+      details.className = 'trip-card-details';
+      const detailsToggle = document.createElement('summary');
+      detailsToggle.textContent = 'Read full details';
+      details.appendChild(detailsToggle);
+      experience.copy.forEach(function (paragraph) {
+        const copy = document.createElement('p');
+        copy.textContent = paragraph;
+        details.appendChild(copy);
+      });
+      if (experience.includedTitle) {
+        const includedHeading = document.createElement('h4');
+        includedHeading.textContent = experience.includedTitle;
+        details.appendChild(includedHeading);
+      }
+      const included = document.createElement('ul');
+      experience.list.forEach(function (item) {
+        const listItem = document.createElement('li');
+        listItem.textContent = item;
+        included.appendChild(listItem);
+      });
+      details.appendChild(included);
+      if (experience.note) {
+        const note = document.createElement('p');
+        note.textContent = experience.note;
+        details.appendChild(note);
+      }
+      card.appendChild(details);
+      const planningFields = document.createElement('div');
+      planningFields.className = 'trip-experience-fields';
+      function saveField(name, value) {
+        const updated = readTrip();
+        const selected = updated.find(function (item) { return item.key === entry.key; });
+        if (selected) selected[name] = value;
+        saveTrip(updated);
+        updateInquirySummary();
+      }
+      function addField(name, title, type, value, required) {
+        const label = document.createElement('label');
+        label.textContent = title;
+        const input = document.createElement(type === 'textarea' ? 'textarea' : 'input');
+        if (type !== 'textarea') input.type = type;
+        input.name = entry.key + '-' + name;
+        input.setAttribute('form', formId);
+        input.required = !!required;
+        input.value = value || '';
+        input.addEventListener('input', function () { saveField(name, input.value); });
+        label.appendChild(input);
+        planningFields.appendChild(label);
+        return input;
+      }
+      const experienceDate = addField('date', experience.bookingDate ? 'Event date' : directBooking ? 'Experience date' : 'Preferred experience date', 'date', experience.bookingDate || entry.date, true);
+      if (experience.bookingDate) experienceDate.readOnly = true;
+      const guests = addField('guests', 'People for this experience', 'number', entry.guests ? String(entry.guests).replace('+', '') : '', true);
+      guests.min = '1';
+      guests.step = '1';
+      guests.placeholder = 'Enter group size';
+      if (experience.bookingDate) {
+        const date = document.createElement('p');
+        date.className = 'trip-summary-card__date';
+        date.textContent = 'Event date: November 14, 2026';
+        card.appendChild(date);
+      }
+      if (experience.bookingTimes) {
+        const timeLabel = document.createElement('label');
+        timeLabel.className = 'trip-summary-card__time';
+        timeLabel.textContent = 'Experience time';
+        const time = document.createElement('select');
+        time.innerHTML = '<option value="">Select a time</option>' + experience.bookingTimes.map(function (option) { return '<option value="' + option + '">' + option + '</option>'; }).join('');
+        time.value = entry.timing || '';
+        time.name = entry.key + '-timing';
+        time.setAttribute('form', formId);
+        time.required = true;
+        time.addEventListener('change', function () {
+          const updated = readTrip();
+          const selected = updated.find(function (item) { return item.key === entry.key; });
+          if (selected) selected.timing = time.value;
+          saveTrip(updated);
+          updateInquirySummary();
+        });
+        timeLabel.appendChild(time);
+        planningFields.appendChild(timeLabel);
+      } else if (experience.service === 'club-reservations' || entry.key.indexOf('venue-') === 0) {
+        addField('timing', 'Preferred club time', 'time', entry.timing, true);
+      }
+      const notes = addField('notes', 'Notes for this experience (optional)', 'textarea', entry.notes, false);
+      notes.placeholder = 'Share requests, celebrations, pickup details, or preferences for this experience.';
+      notes.parentElement.classList.add('trip-experience-fields__wide');
+      card.appendChild(planningFields);
+      const remove = document.createElement('button');
+      remove.type = 'button';
+      remove.className = 'trip-summary-card__remove';
+      remove.textContent = 'Remove from my trip';
+      remove.addEventListener('click', function () {
+        removeFromTrip(entry.key);
+      });
+      card.appendChild(remove);
+      groups[directBooking ? 'online' : 'inquiry'].cards.appendChild(card);
+    });
+    function countLabel(count) { return count + (count === 1 ? ' experience' : ' experiences'); }
+    if (onlineItems.length) {
+      const checkoutForm = document.createElement('form');
+      checkoutForm.id = 'trip-checkout-form';
+      checkoutForm.className = 'trip-checkout-panel';
+      const checkoutHeading = document.createElement('h3');
+      checkoutHeading.textContent = 'One checkout for your online activities';
+      const price = document.createElement('p');
+      price.textContent = 'Prices and total: unavailable until the booking provider is connected. No payment is collected here.';
+      const payload = document.createElement('input');
+      payload.type = 'hidden';
+      payload.name = 'experiences';
+      const button = document.createElement('button');
+      button.type = 'submit';
+      button.className = 'button button--dark';
+      button.textContent = 'Review checkout — ' + countLabel(onlineItems.length);
+      const review = document.createElement('div');
+      review.className = 'trip-booking-review';
+      review.hidden = true;
+      review.tabIndex = -1;
+      review.setAttribute('role', 'status');
+      checkoutForm.append(checkoutHeading, price, payload, button, review);
+      checkoutForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        if (!checkoutForm.reportValidity()) return;
+        const selection = readTrip().filter(function (item) { return directBookingKeys.indexOf(item.key) !== -1; }).map(function (item) {
+          return Object.assign({}, item, { title: experiences[item.key].title, date: experiences[item.key].bookingDate || item.date });
+        });
+        payload.value = JSON.stringify(selection);
+        review.replaceChildren();
+        const list = document.createElement('ul');
+        selection.forEach(function (item) {
+          const row = document.createElement('li');
+          row.textContent = item.title + ' · ' + item.date + (item.timing ? ' · ' + item.timing : '') + ' · ' + item.guests + ' people';
+          list.appendChild(row);
+        });
+        const message = document.createElement('p');
+        message.textContent = 'Your online activities are ready for a shared checkout, but online booking is not connected yet. No payment or reservation has been made. Inquiry-only experiences are not included.';
+        review.append(list, message);
+        review.hidden = false;
+        review.focus();
+      });
+      groups.online.cards.addEventListener('input', function () { review.hidden = true; });
+      groups.online.cards.addEventListener('change', function () { review.hidden = true; });
+      groups.online.section.appendChild(checkoutForm);
+    }
+    const inquiryCount = document.querySelector('[data-trip-inquiry-count]');
+    if (inquiryCount) inquiryCount.textContent = 'Includes only your ' + countLabel(inquiryItems.length) + ' requiring an inquiry.';
+    const inquirySubmit = document.querySelector('[data-trip-inquiry-submit]');
+    if (inquirySubmit) inquirySubmit.textContent = 'Send inquiry — ' + countLabel(inquiryItems.length);
+    const requestSection = document.querySelector('[data-trip-request-section]');
+    if (requestSection) requestSection.hidden = !inquiryItems.length;
+    if (requestForm) requestForm.hidden = !inquiryItems.length;
+    const requestStatus = document.querySelector('[data-trip-request-status]');
+    if (requestStatus) requestStatus.hidden = true;
+  }
+
+  renderTripPage();
+
+  const quickAddForm = document.querySelector('[data-trip-quick-add]');
+  if (quickAddForm) {
+    const select = quickAddForm.querySelector('select');
+    const groups = {
+      'Tours & Excursions': ['buggies', 'partyboat', 'saona', 'jetski', 'private-yacht'],
+      'Nightlife': ['venue-empire', 'venue-infinity', 'venue-movie', 'venue-drinkpoint', 'venue-infinity-stripclub'],
+      'Transport': ['airport-pickup', 'hotel-transfer', 'night-out-ride', 'custom-journey'],
+      'Security': ['security'],
+      'Exclusive THF Events': ['thf-boat-party']
+    };
+    Object.keys(groups).forEach(function (category) {
+      const group = document.createElement('optgroup');
+      group.label = category;
+      groups[category].forEach(function (key) {
+        const option = document.createElement('option');
+        option.value = key;
+        option.textContent = experiences[key].title;
+        group.appendChild(option);
+      });
+      select.appendChild(group);
+    });
+    quickAddForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      if (!quickAddForm.reportValidity()) return;
+      const key = select.value;
+      addToTrip(key, experiences[key].bookingDate ? { date: experiences[key].bookingDate } : {});
+      renderTripPage();
+      const status = quickAddForm.querySelector('[role="status"]');
+      status.textContent = experiences[key].title + ' is in your trip.';
+    });
+  }
+
+  const tripRequestForm = document.querySelector('[data-trip-request-form]');
+  const tripRequestStatus = document.querySelector('[data-trip-request-status]');
+  if (tripRequestForm && tripRequestStatus) {
+    tripRequestForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      if (!tripRequestForm.checkValidity()) {
+        tripRequestForm.reportValidity();
+        return;
+      }
+      const payload = document.querySelector('[data-trip-request-payload]');
+      if (payload) payload.value = JSON.stringify(readTrip().filter(function (entry) { return directBookingKeys.indexOf(entry.key) === -1; }).map(function (entry) {
+        return Object.assign({}, entry, { title: experiences[entry.key].title, date: experiences[entry.key].bookingDate || entry.date || '' });
+      }));
+      tripRequestStatus.hidden = false;
+      tripRequestStatus.dataset.state = 'warning';
+      tripRequestStatus.textContent = 'This local demo is not connected to THF’s booking backend. No trip request was sent and no reservation is confirmed.';
+      tripRequestStatus.focus();
+    });
+  }
 
   document.querySelectorAll('[data-gallery-scroll]').forEach(function (button) {
     button.addEventListener('click', function () {

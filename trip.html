@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Review and request your custom THF trip in Punta Cana.">
+  <title>Build My Trip | THF</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header"><div class="nav-shell">
+    <a class="brand" href="index.html" aria-label="THF home"><img src="public/images/THF_LOGO.png" alt="THF"></a>
+    <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-navigation" aria-label="Open navigation"><span></span><span></span><span></span></button>
+    <nav class="site-nav" id="site-navigation" data-site-nav aria-label="Main navigation">
+      <a href="tours.html">Tours &amp; Excursions</a><a href="nightlife.html">Nightlife</a><a href="transport.html">Transport</a><a href="events.html">Exclusive THF Events</a>
+    </nav>
+  </div></header>
+  <main id="main-content" class="main">
+    <section class="page-hero page-hero--dark" aria-labelledby="trip-hero-heading">
+      <div class="page-hero-inner"><div class="page-hero-copy"><p class="eyebrow">Your THF itinerary</p><h1 id="trip-hero-heading">Build My Trip</h1><p>Bring your experiences together, choose your dates, and book activities or request custom arrangements with THF.</p></div></div>
+    </section>
+    <section class="section section--ivory trip-selections-section" aria-labelledby="trip-summary-heading"><div class="shell">
+      <div class="section-intro"><div><p class="eyebrow">Your selections</p><h2 id="trip-summary-heading">Your THF trip</h2></div><p>Two clear ways to complete your plans: checkout for online activities, and an inquiry for arrangements that THF needs to confirm.</p></div>
+      <p class="trip-flow-note" data-trip-mixed-note hidden>Checkout books only your online activities. Your nightlife and custom arrangements are requested separately.</p>
+      <div class="trip-empty" data-trip-empty hidden><h2>Your trip is waiting.</h2><p>Explore tours, nightlife, private transport, or Exclusive THF Events and add what you want to experience.</p><a class="button button--dark" href="tours.html">Explore experiences <span aria-hidden="true">→</span></a></div>
+      <div class="trip-summary-grid" data-trip-summary></div>
+    </div></section>
+    <section class="section trip-build-section" aria-labelledby="trip-add-more-heading"><div class="shell">
+      <div class="section-intro section-intro--narrow"><div><p class="eyebrow">Keep building</p><h2 id="trip-add-more-heading">Add more experiences to your trip</h2></div></div>
+      <form class="trip-quick-add" data-trip-quick-add><label for="trip-quick-experience">Quickly add an experience</label><div><select id="trip-quick-experience" required><option value="">Choose an experience</option></select><button class="button button--dark" type="submit">Add to My Trip</button></div><p role="status" aria-live="polite"></p></form>
+      <nav class="hero-explore trip-browse-nav" aria-label="Browse more experiences"><p>Explore each category</p><div><a href="tours.html">Tours &amp; Excursions →</a><a href="nightlife.html">Nightlife →</a><a href="transport.html">Transport →</a><a href="events.html">Exclusive THF Events →</a></div></nav>
+    </div></section>
+    <section class="section inquiry-section" data-trip-request-section aria-labelledby="trip-request-heading"><div class="shell inquiry-layout">
+      <div><p class="eyebrow">Request arrangements · No payment now</p><h2 id="trip-request-heading">Send your inquiry</h2><p>Ask THF to arrange your inquiry-only experiences. This does not book or pay for your online activities.</p><ul class="inquiry-trust"><li data-trip-inquiry-count></li><li>THF will confirm availability and pricing before you commit.</li><li>A request is not a confirmed reservation.</li></ul></div>
+      <form class="inquiry-form" id="trip-request-form" data-trip-request-form novalidate>
+        <input type="hidden" name="experiences" data-trip-request-payload>
+        <div class="field"><label for="trip-name">Your name</label><input id="trip-name" name="name" autocomplete="name" required></div>
+        <div class="field"><label for="trip-email">Email</label><input id="trip-email" name="email" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="trip-arrival">Arrival date (optional)</label><input id="trip-arrival" name="arrival-date" type="date"></div>
+        <div class="field"><label for="trip-departure">Departure date <span aria-label="optional">(optional)</span></label><input id="trip-departure" name="departure-date" type="date"></div>
+        <div class="field field--wide"><label for="trip-notes">Overall trip notes (optional)</label><textarea id="trip-notes" name="notes" placeholder="Anything that applies to your whole trip. Add experience-specific requests in the cards above."></textarea></div>
+        <div class="trip-inquiry-summary field--wide" aria-labelledby="trip-inquiry-summary-heading"><h3 id="trip-inquiry-summary-heading">Included in this inquiry</h3><p>Only the arrangements listed below will be requested. Online activities are booked separately.</p><ul data-trip-inquiry-summary></ul></div>
+        <p class="form-note">Demo only — this site has no connected booking backend. Sending this form will not submit a request.</p>
+        <button class="button" type="submit" data-trip-inquiry-submit>Send inquiry <span aria-hidden="true">→</span></button>
+        <p class="form-status" data-trip-request-status tabindex="-1" hidden aria-live="polite"></p>
+      </form>
+    </div></section>
+  </main>
+  <footer class="site-footer"><div class="footer-shell"><div class="footer-top">
+    <a class="footer-brand" href="index.html" aria-label="THF home"><img src="public/images/THF_LOGO.png" alt="THF"></a>
+    <div><p class="footer-claim">Live Your Best Experience.<br>The Right Way.</p><p class="footer-copy">Tours, nightlife, private transport, and exclusive THF events.</p></div>
+    <div class="footer-links"><strong>Explore</strong><a href="tours.html">Tours &amp; Excursions</a><a href="nightlife.html">Nightlife</a><a href="transport.html">Transport</a><a href="events.html">Exclusive THF Events</a></div>
+    <div class="footer-links"><strong>Your trip</strong><a href="trip.html" aria-current="page">Build My Trip</a></div>
+  </div><div class="footer-bottom"><p>© <span data-current-year>2026</span> THF. All rights reserved.</p><p>Bávaro · Punta Cana, Dominican Republic</p></div></div></footer>
+</body>
+</html>
