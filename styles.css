@@ -440,6 +440,7 @@ button { cursor: pointer; }
 .event-countdown__units strong { color: var(--ivory); font-family: var(--display); font-size: clamp(1.5rem, 3vw, 2.3rem); font-weight: 400; line-height: 1; }
 .event-countdown__status:not(:empty) { margin-top: .7rem; color: var(--ivory); letter-spacing: normal; text-transform: none; }
 .event-countdown--compact { max-width: 520px; }
+.event-countdown--top { max-width: 620px; margin: 0 0 1.5rem; }
 @media (max-width: 440px) { .event-countdown__units { gap: .3rem; } .event-countdown { padding: .8rem; } }
 .feature-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .9rem; margin: 2rem 0; padding: 0; list-style: none; }
 .feature-list li { min-height: 78px; padding: .95rem; border-top: 1px solid rgba(230,211,168,.35); color: var(--champagne); font-size: .86rem; }
