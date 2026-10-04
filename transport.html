@@ -20,6 +20,7 @@
         <a href="nightlife.html">Nightlife</a>
         <a href="transport.html" aria-current="page">Transport</a>
         <a href="events.html">Exclusive THF Events</a>
+      <a href="trip.html" class="nav-trip">My Trip</a>
       </nav>
     </div>
   </header>
@@ -46,10 +47,10 @@
           <button class="experience-preview experience-preview--tall" type="button" data-open-experience="transport" aria-label="Open Transport details"><img src="public/images/transport2.png" alt="Private vehicle arriving at a Punta Cana resort setting"></button>
         </div>
         <div class="service-grid" style="margin-top: 2.2rem;">
-          <article class="stack-card transport-option"><h3>Airport Pickups</h3><p>Start your stay with a private airport pickup arranged around your arrival details.</p><a class="card-link" href="index.html?service=airport-pickup#inquiry">Request an airport pickup <span aria-hidden="true">→</span></a></article>
-          <article class="stack-card transport-option"><h3>Hotel Transfers</h3><p>Move between your hotel and the places on your Punta Cana itinerary with a private transfer request.</p><a class="card-link" href="index.html?service=hotel-transfer#inquiry">Request a hotel transfer <span aria-hidden="true">→</span></a></article>
-          <article class="stack-card transport-option"><h3>Private Rides for Nights Out</h3><p>Arrange a private ride around your evening plans, separate from any club reservation or VIP request.</p><a class="card-link" href="index.html?service=night-out-ride#inquiry">Plan a night-out ride <span aria-hidden="true">→</span></a></article>
-          <article class="stack-card transport-option transport-option--wide"><h3>Custom Journeys</h3><p>Share your pickup, destination, date, and group size to request transportation that fits the rest of your stay.</p><a class="card-link" href="index.html?service=custom-journey#inquiry">Request a custom journey <span aria-hidden="true">→</span></a></article>
+          <article class="stack-card transport-option"><h3>Airport Pickups</h3><p>Start your stay with a private airport pickup arranged around your arrival details.</p><button class="card-link trip-service-add" type="button" data-add-experience="airport-pickup">Add to My Trip <span aria-hidden="true">→</span></button></article>
+          <article class="stack-card transport-option"><h3>Hotel Transfers</h3><p>Move between your hotel and the places on your Punta Cana itinerary with a private transfer request.</p><button class="card-link trip-service-add" type="button" data-add-experience="hotel-transfer">Add to My Trip <span aria-hidden="true">→</span></button></article>
+          <article class="stack-card transport-option"><h3>Private Rides for Nights Out</h3><p>Arrange a private ride around your evening plans, separate from any club reservation or VIP request.</p><button class="card-link trip-service-add" type="button" data-add-experience="night-out-ride">Add to My Trip <span aria-hidden="true">→</span></button></article>
+          <article class="stack-card transport-option transport-option--wide"><h3>Custom Journeys</h3><p>Share your pickup, destination, date, and group size to request transportation that fits the rest of your stay.</p><button class="card-link trip-service-add" type="button" data-add-experience="custom-journey">Add to My Trip <span aria-hidden="true">→</span></button></article>
         </div>
       </div>
     </section>
@@ -68,10 +69,10 @@
     </section>
 
     <section class="section section--ivory" aria-labelledby="transport-cta-heading">
-      <div class="shell page-cta"><p class="eyebrow">Plan Your Ride</p><h2 id="transport-cta-heading">Plan Your Ride</h2><p>Transport arrangements are requested through an inquiry and are not confirmed reservations.</p><a class="button" href="index.html?service=airport-pickup#inquiry">Plan Your Ride <span aria-hidden="true">→</span></a></div>
+      <div class="shell page-cta"><p class="eyebrow">Your next step</p><h2 id="transport-cta-heading">Bring your rides into your trip.</h2><p>Add the transport services you need, then share pickup, destination, and guest details in My Trip. THF will confirm availability and pricing.</p><a class="button" href="trip.html" data-trip-destination>Build My Trip <span aria-hidden="true">→</span></a></div>
     </section>
     <section class="section section--dark footer-explore" aria-label="Explore THF categories">
-      <div class="shell"><nav class="hero-explore"><p>Explore what THF offers</p><div><a href="tours.html">Tours &amp; Excursions <span aria-hidden="true">→</span></a><a href="nightlife.html">Nightlife <span aria-hidden="true">→</span></a><a href="transport.html" aria-current="page">Transport <span aria-hidden="true">→</span></a></div></nav></div>
+      <div class="shell"><nav class="hero-explore"><p>Explore what THF offers</p><div><a href="tours.html">Tours &amp; Excursions <span aria-hidden="true">→</span></a><a href="nightlife.html">Nightlife <span aria-hidden="true">→</span></a><a href="transport.html" aria-current="page">Transport <span aria-hidden="true">→</span></a><a href="events.html">Exclusive THF Events <span aria-hidden="true">→</span></a></div></nav></div>
     </section>
   </main>
 
@@ -80,7 +81,7 @@
       <a class="footer-brand" href="index.html" aria-label="THF home"><img src="public/images/THF_LOGO.png" alt="THF"></a>
       <div><p class="footer-claim">Live Your Best Experience.<br>The Right Way.</p><p class="footer-copy">Tours and excursions, premium nightlife, and private transport in Punta Cana. Plan your experience with THF.</p></div>
       <div class="footer-links"><strong>Explore</strong><a href="tours.html">Tours &amp; Excursions</a><a href="nightlife.html">Nightlife</a><a href="transport.html">Transport</a></div>
-      <div class="footer-links"><strong>Start planning</strong><a href="index.html#inquiry">Plan Your Stay</a></div>
+      <div class="footer-links"><strong>Your trip</strong><a href="trip.html" data-trip-destination>Build My Trip</a></div>
     </div><div class="footer-bottom"><p>© 2026 THF. All rights reserved.</p><p>Bávaro · Punta Cana, Dominican Republic</p></div></div>
   </footer>
 </body>

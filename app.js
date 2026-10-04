@@ -274,6 +274,16 @@
   ['airport-pickup', 'hotel-transfer', 'night-out-ride', 'custom-journey'].forEach(function (key, index) {
     experiences[key] = Object.assign({}, experiences.transport, { title: ['Airport Pickup', 'Hotel Transfer', 'Night-out Transport', 'Custom Journey'][index], service: key });
   });
+  experiences['private-events'] = {
+    label: 'Nightlife · Custom arrangements',
+    title: 'Private Celebration / Custom Event',
+    lead: 'Plan a birthday, group gathering, or special occasion around your preferred setting and atmosphere.',
+    copy: ['Tell THF what you are celebrating, your preferred date and group size, and the venue or atmosphere you have in mind. We will explore available options and confirm the arrangements and pricing with you.'],
+    list: ['Custom celebration planning', 'Venue and atmosphere requests', 'VIP or private-space options subject to availability'],
+    note: 'This is a custom-event inquiry. The November 14 THF Boat Party is a separate online activity.',
+    service: 'private-events',
+    gallery: [['public/images/Nightlife.png', 'Punta Cana nightlife scene', 'Plan a celebration with THF.']]
+  };
   const tripStorageKey = 'thf-trip-builder-v1';
 
   function readTrip() {
@@ -308,10 +318,16 @@
 
   function updateTripButtons() {
     const trip = readTrip();
+    document.querySelectorAll('[data-trip-destination]').forEach(function (link) {
+      link.textContent = trip.length ? 'View My Trip · ' + trip.length + (trip.length === 1 ? ' experience' : ' experiences') : 'Build My Trip';
+    });
+    document.querySelectorAll('.nav-trip').forEach(function (link) {
+      link.textContent = trip.length ? 'My Trip (' + trip.length + ')' : 'My Trip';
+    });
     document.querySelectorAll('[data-trip-experience]').forEach(function (button) {
       const added = trip.some(function (item) { return item.key === button.dataset.tripExperience; });
       button.classList.toggle('is-added', added);
-      button.textContent = added ? 'Added to My Trip ✓' : 'Add to My Trip';
+      button.textContent = added ? (button.dataset.addExperience === 'private-events' ? 'Celebration added ✓' : 'Added to My Trip ✓') : (button.dataset.addExperience === 'private-events' ? 'Add celebration to My Trip' : 'Add to My Trip');
       button.setAttribute('aria-pressed', String(added));
     });
     document.querySelectorAll('[data-trip-remove]').forEach(function (button) {
@@ -584,6 +600,14 @@
     host.appendChild(actions);
   });
 
+  document.querySelectorAll('[data-add-experience]').forEach(function (button) {
+    const key = button.dataset.addExperience;
+    if (!experiences[key]) return;
+    button.dataset.tripExperience = key;
+    button.setAttribute('aria-pressed', 'false');
+    button.addEventListener('click', function () { addToTrip(key); });
+  });
+
   renderTripTray();
   updateTripButtons();
 
@@ -599,6 +623,19 @@
       const date = item.date ? new Date(item.date + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Date not selected';
       info.textContent = date + ' · ' + (item.guests ? item.guests + ' people' : 'Group size not selected') + (item.timing ? ' · Preferred time: ' + item.timing : '');
       row.append(title, info);
+      const preferences = [
+        item.pickup && 'Pickup: ' + item.pickup,
+        item.destination && 'Destination: ' + item.destination,
+        item.occasion && 'Occasion: ' + item.occasion,
+        item.sunset && 'Cruise preference: ' + item.sunset,
+        item.vip && 'VIP / table: ' + item.vip,
+        item.atmosphere && 'Venue / atmosphere: ' + item.atmosphere
+      ].filter(Boolean);
+      if (preferences.length) {
+        const preferenceText = document.createElement('span');
+        preferenceText.textContent = preferences.join(' · ');
+        row.appendChild(preferenceText);
+      }
       if (item.notes) {
         const notes = document.createElement('span');
         notes.className = 'trip-inquiry-summary__notes';
@@ -772,6 +809,36 @@
       } else if (experience.service === 'club-reservations' || entry.key.indexOf('venue-') === 0) {
         addField('timing', 'Preferred club time', 'time', entry.timing, true);
       }
+      if (['transport', 'airport-pickup', 'hotel-transfer', 'night-out-ride', 'custom-journey'].indexOf(entry.key) !== -1) {
+        addField('pickup', 'Pickup location', 'text', entry.pickup, true).placeholder = 'Airport, hotel, or starting point';
+        addField('destination', 'Destination', 'text', entry.destination, true).placeholder = 'Where you need to go';
+      }
+      if (entry.key === 'private-yacht' || entry.key === 'private-events' || entry.key.indexOf('venue-') === 0) {
+        addField('occasion', 'Occasion (optional)', 'text', entry.occasion, false).placeholder = 'Birthday, group trip, celebration…';
+      }
+      if (entry.key === 'private-yacht') {
+        const label = document.createElement('label');
+        label.textContent = 'Cruise preference (optional)';
+        const select = document.createElement('select');
+        select.name = entry.key + '-sunset';
+        select.setAttribute('form', formId);
+        ['No preference', 'Daytime cruise', 'Sunset cruise'].forEach(function (text, index) {
+          const option = document.createElement('option');
+          option.value = index ? text : '';
+          option.textContent = text;
+          select.appendChild(option);
+        });
+        select.value = entry.sunset || '';
+        select.addEventListener('change', function () { saveField('sunset', select.value); });
+        label.appendChild(select);
+        planningFields.appendChild(label);
+      }
+      if (entry.key.indexOf('venue-') === 0 || entry.key === 'private-events') {
+        addField('vip', 'VIP / table preferences (optional)', 'text', entry.vip, false).placeholder = 'Table, bottle service, or dedicated space';
+      }
+      if (entry.key === 'private-events') {
+        addField('atmosphere', 'Preferred venue / atmosphere (optional)', 'text', entry.atmosphere, false).placeholder = 'Venue ideas, music, or the setting you want';
+      }
       const notes = addField('notes', 'Notes for this experience (optional)', 'textarea', entry.notes, false);
       notes.placeholder = 'Share requests, celebrations, pickup details, or preferences for this experience.';
       notes.parentElement.classList.add('trip-experience-fields__wide');
@@ -850,7 +917,7 @@
     const select = quickAddForm.querySelector('select');
     const groups = {
       'Tours & Excursions': ['buggies', 'partyboat', 'saona', 'jetski', 'private-yacht'],
-      'Nightlife': ['venue-empire', 'venue-infinity', 'venue-movie', 'venue-drinkpoint', 'venue-infinity-stripclub'],
+      'Nightlife': ['venue-empire', 'venue-infinity', 'venue-movie', 'venue-drinkpoint', 'venue-infinity-stripclub', 'private-events'],
       'Transport': ['airport-pickup', 'hotel-transfer', 'night-out-ride', 'custom-journey'],
       'Security': ['security'],
       'Exclusive THF Events': ['thf-boat-party']
@@ -908,67 +975,24 @@
     });
   });
 
-  const service = document.querySelector('[data-service-select]');
-  const boatFields = document.querySelectorAll('[data-private-boat-field]');
-  const routeFields = document.querySelectorAll('[data-route-field]');
-  const transportServices = ['airport-pickup', 'hotel-transfer', 'night-out-ride', 'custom-journey'];
-  const isPrivateBoat = function () { return service && service.value === 'private-yacht'; };
-  const isSecurity = function () { return service && service.value === 'private-security'; };
-  const isTransport = function () { return service && transportServices.indexOf(service.value) !== -1; };
-
-  function toggleContextFields() {
-    boatFields.forEach(function (field) {
-      const enabled = isPrivateBoat();
-      field.hidden = !enabled;
-      const control = field.querySelector('input, select, textarea');
-      if (control) {
-        control.disabled = !enabled;
-        control.required = enabled && control.dataset.requiredForBoat === 'true';
+  // Keep existing shared service links useful after consolidating the planning flow.
+  if (document.querySelector('.trip-planning-invitation')) {
+    const params = new URLSearchParams(window.location.search);
+    const serviceName = params.get('service');
+    if (serviceName) {
+      const key = experiences[serviceName] ? serviceName : Object.keys(experiences).find(function (key) {
+        return experiences[key].service === serviceName && serviceName !== 'club-reservations';
+      });
+      if (key) {
+        const options = {};
+        const date = params.get('date');
+        const guests = params.get('guests');
+        if (date && /^\d{4}-\d{2}-\d{2}$/.test(date)) options.date = date;
+        if (guests && /^\d+\+?$/.test(guests)) options.guests = guests.replace('+', '');
+        if (params.get('time')) options.timing = params.get('time');
+        addToTrip(key, options);
       }
-    });
-    routeFields.forEach(function (field) {
-      const enabled = isTransport() && !isSecurity();
-      field.hidden = !enabled;
-      const control = field.querySelector('input, select, textarea');
-      if (control) {
-        control.disabled = !enabled;
-        control.required = enabled && control.dataset.requiredForRoute === 'true';
-      }
-    });
-  }
-
-  if (service) {
-    const requestParams = new URLSearchParams(window.location.search);
-    const requestedService = requestParams.get('service');
-    if (requestedService && service.querySelector('option[value="' + requestedService + '"]')) {
-      service.value = requestedService;
+      window.location.replace('trip.html' + (key ? '' : '#trip-add-more-heading'));
     }
-    const requestedGuests = requestParams.get('guests');
-    const requestedDate = requestParams.get('date');
-    const dateField = document.getElementById('date');
-    if (requestedDate && dateField && /^\d{4}-\d{2}-\d{2}$/.test(requestedDate)) dateField.value = requestedDate;
-    const groupSize = document.getElementById('group-size');
-    if (requestedGuests && groupSize) groupSize.value = requestedGuests.replace('+', '');
-    const requestedTime = requestParams.get('time');
-    const inquiryDetails = document.getElementById('details');
-    if (requestedTime && inquiryDetails && !inquiryDetails.value) inquiryDetails.value = 'Preferred time: ' + requestedTime;
-    toggleContextFields();
-    service.addEventListener('change', toggleContextFields);
-  }
-
-  const form = document.querySelector('[data-inquiry-form]');
-  const status = document.querySelector('[data-form-status]');
-  if (form && status) {
-    form.addEventListener('submit', function (event) {
-      event.preventDefault();
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
-      status.hidden = false;
-      status.dataset.state = 'warning';
-      status.textContent = 'This local demo is not connected to THF\'s booking backend. No inquiry was sent and no reservation is confirmed.';
-      status.focus();
-    });
   }
 }());

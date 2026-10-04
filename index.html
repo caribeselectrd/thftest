@@ -20,6 +20,7 @@
         <a href="nightlife.html">Nightlife</a>
         <a href="transport.html">Transport</a>
         <a href="events.html">Exclusive THF Events</a>
+      <a href="trip.html" class="nav-trip">My Trip</a>
       </nav>
     </div>
   </header>
@@ -160,42 +161,8 @@
       </div>
     </section>
 
-    <section class="section inquiry-section" id="inquiry" aria-labelledby="inquiry-heading">
-      <div class="shell inquiry-layout">
-        <div>
-          <p class="eyebrow">Build Your Trip</p>
-          <h2 id="inquiry-heading">Build Your Trip</h2>
-          <p>Add experiences to My Trip as you browse, or start with a single service here and let THF help bring the rest together.</p>
-          <ul class="inquiry-trust">
-            <li>An inquiry is not a confirmed reservation.</li>
-            <li>Plans and availability are confirmed with your quote.</li>
-            <li>Private-security inquiries begin with general details only.</li>
-          </ul>
-        </div>
-        <form class="inquiry-form" data-inquiry-form novalidate>
-          <div class="field"><label for="name">Your name</label><input id="name" name="name" autocomplete="name" required></div>
-          <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
-          <div class="field field--wide"><label for="service">What would you like to plan?</label>
-            <select id="service" name="service" data-service-select required>
-              <option value="">Choose a service</option>
-              <optgroup label="Exclusive THF Events"><option value="thf-boat-party">November 14 — THF Boat Party with DJ Griggs</option></optgroup>
-              <optgroup label="Tours & Excursions"><option value="buggies-atv">Buggies &amp; ATV Adventure</option><option value="hip-hop-party-boat">Hip-Hop Party Boat (Adults Only)</option><option value="private-yacht">Private Boats &amp; Yacht Experiences</option><option value="jet-ski">Jet Ski Experience</option><option value="isla-saona">Isla Saona Escape</option></optgroup>
-              <optgroup label="Nightlife"><option value="club-reservations">Club Reservations</option><option value="vip-sections">VIP Sections</option><option value="private-events">Exclusive Events &amp; Private Celebrations</option><option value="private-security">Private Security</option></optgroup>
-              <optgroup label="Transport"><option value="airport-pickup">Airport Pickup</option><option value="hotel-transfer">Hotel Transfer</option><option value="night-out-ride">Private Ride for a Night Out</option><option value="custom-journey">Custom Journey</option></optgroup>
-            </select>
-          </div>
-          <div class="field"><label for="date">Preferred date</label><input id="date" name="date" type="date" required></div>
-          <div class="field"><label for="group-size">Group size</label><input id="group-size" name="group-size" type="number" min="1" inputmode="numeric" required></div>
-          <div class="field field--wide" data-private-boat-field hidden><label for="occasion">Occasion</label><input id="occasion" name="occasion" data-required-for-boat="true" placeholder="Celebration, relaxed cruise, sunset plan…"></div>
-          <div class="field field--wide" data-private-boat-field hidden><label for="sunset">Sunset preference <span aria-label="optional">(optional)</span></label><select id="sunset" name="sunset"><option value="">No preference</option><option>Interested in a sunset experience</option><option>Daytime experience preferred</option></select></div>
-          <div class="field" data-route-field hidden><label for="pickup">Pickup</label><input id="pickup" name="pickup" data-required-for-route="true" placeholder="Airport, hotel, or starting point"></div>
-          <div class="field" data-route-field hidden><label for="destination">Destination</label><input id="destination" name="destination" data-required-for-route="true" placeholder="Where you need to go"></div>
-          <div class="field field--wide"><label for="details">Anything else we should know?</label><textarea id="details" name="details" placeholder="Share the atmosphere, schedule, or general details that matter to your plan."></textarea></div>
-          <p class="form-note">Demo only — this site has no connected booking backend. Submitting this form will not send an inquiry.</p>
-          <button class="button" type="submit">Send Trip Request <span aria-hidden="true">→</span></button>
-          <p class="form-status" data-form-status tabindex="-1" hidden aria-live="polite"></p>
-        </form>
-      </div>
+    <section class="section inquiry-section trip-planning-invitation" id="inquiry" aria-labelledby="inquiry-heading">
+      <div class="shell page-cta"><p class="eyebrow">Build My Trip</p><h2 id="inquiry-heading">Your Punta Cana plans, together.</h2><p>Choose one experience or build your whole stay. Review your dates, guests, and arrangements in My Trip.</p><a class="button" href="trip.html" data-trip-destination>Build My Trip <span aria-hidden="true">→</span></a></div>
     </section>
   </main>
 
@@ -205,7 +172,7 @@
         <a class="footer-brand" href="index.html" aria-label="THF home"><img src="public/images/THF_LOGO.png" alt="THF"></a>
         <div><p class="footer-claim">Live Your Best Experience.<br>The Right Way.</p><p class="footer-copy">Tours and excursions, premium nightlife, and private transport in Punta Cana. Plan your experience with THF.</p></div>
         <div class="footer-links"><strong>Explore</strong><a href="tours.html">Tours &amp; Excursions</a><a href="nightlife.html">Nightlife</a><a href="transport.html">Transport</a></div>
-        <div class="footer-links"><strong>Start planning</strong><a href="#inquiry">Plan Your Stay</a></div>
+        <div class="footer-links"><strong>Your trip</strong><a href="trip.html" data-trip-destination>Build My Trip</a></div>
       </div>
       <div class="footer-bottom"><p>© <span data-current-year>2026</span> THF. All rights reserved.</p><p>Bávaro · Punta Cana, Dominican Republic</p></div>
     </div>

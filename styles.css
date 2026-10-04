@@ -564,6 +564,7 @@ button { cursor: pointer; }
 .trip-experience-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 1rem; margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
 .trip-experience-fields label { display: grid; gap: .45rem; color: var(--deep-gold); font-size: .72rem; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; }
 .trip-experience-fields input, .trip-experience-fields textarea { width: 100%; min-height: 46px; padding: .7rem; border: 1px solid var(--line); border-radius: 0; color: var(--ink); background: #fff; font: inherit; font-size: 1rem; font-weight: 400; letter-spacing: normal; text-transform: none; }
+.trip-experience-fields select { width: 100%; min-height: 46px; padding: .7rem; border: 1px solid var(--line); color: var(--ink); background: #fff; font: inherit; font-size: 1rem; font-weight: 400; letter-spacing: normal; text-transform: none; }
 .trip-experience-fields textarea { min-height: 100px; resize: vertical; }
 .trip-experience-fields input[readonly] { background: var(--ivory); }
 .trip-experience-fields__wide { grid-column: 1 / -1; }
@@ -620,6 +621,19 @@ button { cursor: pointer; }
 .page-cta { padding: 2.3rem; color: var(--ivory); background: var(--charcoal); border-left: 4px solid var(--gold); }
 .page-cta h2 { margin: 0; font-size: clamp(2rem, 4vw, 3.25rem); font-weight: 400; letter-spacing: -.045em; line-height: 1; }
 .page-cta p { max-width: 650px; margin: .8rem 0 1.4rem; color: rgba(247,243,235,.73); }
+.trip-planning-invitation .page-cta { background: transparent; }
+.nav-trip { color: var(--champagne) !important; }
+.trip-service-add { padding: .75rem 0; border: 0; background: transparent; text-align: left; }
+.trip-night-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; margin: 1.5rem 0; }
+.trip-night-options strong { display: block; margin-bottom: .4rem; color: var(--champagne); }
+.trip-night-options p { margin: 0; font-size: .9rem; }
+.trip-planning-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; }
+.trip-planning-actions .trip-add-button { color: var(--champagne); border-color: var(--champagne); }
+@media (max-width: 700px) {
+  .trip-night-options { grid-template-columns: 1fr; gap: 1rem; }
+  .trip-planning-actions { justify-content: center; }
+  .page-cta { padding: 1.5rem; }
+}
 
 .site-footer { color: var(--ivory); background: #090909; border-top: 1px solid rgba(230,211,168,.23); }
 .footer-shell { width: min(1240px, calc(100% - 2.5rem)); margin: 0 auto; padding: 3.3rem 0 1.5rem; }
